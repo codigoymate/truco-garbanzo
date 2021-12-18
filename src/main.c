@@ -1,20 +1,29 @@
 #include <ncurses.h>
 #include <truco.h>
 
+#include <tmenu.h>
+
 int main(int argc, char *argv[]) {
 
-    initscr();
+    Menu *menu = NULL, *node = NULL;
 
+    menu = menu_add_item(menu, "Item 1");
+    menu = menu_add_item(menu, "Item 2");
+    menu = menu_add_item(menu, "Item 3");
+
+    initscr();
     truco_init();
 
-    printw("%s", "Truco Argento!!!\n");
+    for (node = menu; node != NULL; node = node->next) {
+        printw("%s\n", node->name);
+    }
 
     refresh();
-
     getch();
 
-    truco_clean();
+    menu_clean(menu);
 
+    truco_clean();
     endwin();
 
     return 0;

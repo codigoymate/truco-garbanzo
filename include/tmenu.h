@@ -7,5 +7,6 @@ typedef struct Menu {
 } Menu;
 
 Menu *menu_add_item(Menu *menu, const char *name);
+void menu_clean(Menu *menu);
 
 #endif
