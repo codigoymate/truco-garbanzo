@@ -5,18 +5,20 @@
 
 int main(int argc, char *argv[]) {
 
-    Menu *menu = NULL, *node = NULL;
-
-    menu = menu_add_item(menu, "Item 1");
-    menu = menu_add_item(menu, "Item 2");
-    menu = menu_add_item(menu, "Item 3");
+    Menu *menu = NULL;
 
     initscr();
+    start_color();
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
     truco_init();
 
-    for (node = menu; node != NULL; node = node->next) {
-        printw("%s\n", node->name);
-    }
+    menu = menu_new(stdscr, 20, 5);
+
+    menu_add_item(menu, "    Item 1    ");
+    menu_add_item(menu, "    Item 2    ");
+    menu_add_item(menu, "    Item 3    ");
+
+    menu_print(menu);
 
     refresh();
     getch();

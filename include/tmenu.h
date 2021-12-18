@@ -1,12 +1,22 @@
 #ifndef TMENU_H
 #define TMENU_H
 
-typedef struct Menu {
+#include <ncurses.h>
+
+typedef struct MenuItem {
 	char *name;
-	struct Menu *next;
+	struct MenuItem *next;
+} MenuItem;
+
+typedef struct Menu {
+	MenuItem *first, *last;
+	int x, y;
+	WINDOW *wnd;
 } Menu;
 
-Menu *menu_add_item(Menu *menu, const char *name);
+Menu *menu_new(WINDOW *wnd, int x, int y);
+void menu_add_item(Menu *menu, const char *name);
 void menu_clean(Menu *menu);
+void menu_print(Menu *menu);
 
 #endif

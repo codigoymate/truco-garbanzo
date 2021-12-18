@@ -2,36 +2,63 @@
 #include <string_utils.h>
 #include <stdlib.h>
 
-void item_clean(Menu *menu) {
-	string_clear(menu->name);
-	free(menu);
+void item_clean(MenuItem *item) {
+	string_clear(item->name);
+	free(item);
 }
 
-Menu *menu_add_item(Menu *menu, const char *name) {
-	Menu *n;
-	Menu *node = (Menu *) malloc(sizeof(Menu));
-	node->name = string_set(NULL, name);
-	node->next = NULL;
-	
-	if (!menu) return node;
-
-	n = menu;
-
-	while (n->next != NULL) n = n->next;
-
-	n->next = node;
+Menu *menu_new(WINDOW *wnd, int x, int y) {
+	Menu *menu = (Menu *) malloc(sizeof(Menu));
+	menu->first = NULL;
+	menu->x = x; menu->y = y;
+	menu->wnd = wnd;
 
 	return menu;
 }
 
-void menu_clean(Menu *menu) {
-	Menu *node = menu, *next;
+void menu_add_item(Menu *menu, const char *name) {
+	MenuItem *item = (MenuItem *) malloc(sizeof(MenuItem));
+	item->name = string_set(NULL, name);
+	item->next = NULL;
 
-	if (!node) return ;
-
-	while (node) {
-		next = node->next;
-		item_clean(node);
-		node = next;
+	if (!menu->first) {
+		menu->first = item;
+		menu->last = item;
+		return ;
 	}
+
+	menu->last->next = item;
+	menu->last = item;
 }
+
+void menu_clean(Menu *menu) {
+	MenuItem *item = menu->first, *next;
+
+	if (item) {
+
+		while (item) {
+			next = item->next;
+			item_clean(item);
+			item = next;
+		}
+
+	}
+
+	free(menu);
+}
+
+void menu_print(Menu *menu) {
+	int yy = menu->y;
+	MenuItem *node = menu->first;
+
+	wattron(menu->wnd, COLOR_PAIR(1));
+
+	for (node = menu->first; node != NULL; node = node->next) {
+		
+        mvwprintw(menu->wnd, yy, menu->x, "%s", node->name);
+		yy ++;
+    }
+
+	wattroff(menu->wnd, COLOR_PAIR(1));
+}
+
