@@ -1,7 +1,7 @@
 SRC = $(wildcard src/*.c)
 OBJ = $(addprefix obj/, $(notdir $(SRC:.c=.o)))
 
-CFLAGS = -Wall -pedantic -g
+CFLAGS = -Wall -pedantic -g -I include
 LFLAGS = -lncurses
 BINARY = bin/truco
 
