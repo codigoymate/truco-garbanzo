@@ -11,7 +11,7 @@ $(BINARY): $(OBJ) | bin
 	gcc $(CFLAGS) $(OBJ) -o $(BINARY) $(LFLAGS)
 
 obj/%.o: src/%.c | obj
-	gcc $(CFLAGS) $< -o $@ -c
+	gcc -MD $(CFLAGS) $< -o $@ -c
 
 obj:
 	mkdir obj
@@ -24,4 +24,6 @@ run: $(BINARY)
 
 .PHONY=clean
 clean:
-	rm -f $(OBJ) $(BINARY)
+	rm -f $(OBJ) $(BINARY) obj/*.d
+
+-include obj/*.d
