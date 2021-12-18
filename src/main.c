@@ -18,6 +18,8 @@ int main(int argc, char *argv[]) {
     menu_add_item(menu, "    Item 2    ");
     menu_add_item(menu, "    Item 3    ");
 
+    menu_down_event(menu);
+
     menu_print(menu);
 
     refresh();
