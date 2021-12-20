@@ -1,29 +1,43 @@
 #include <ncurses.h>
+#include <stdlib.h>
 #include <truco.h>
-
 #include <tmenu.h>
 
-int main(int argc, char *argv[]) {
+int q;
 
+void item1(void);
+void item2(void);
+void quit(void);
+
+int main(int argc, char *argv[]) {
+    int key;
     Menu *menu = NULL;
 
+    q = 0;
+
     initscr();
+    noecho();
+    curs_set(0);
     start_color();
+    keypad(stdscr, TRUE);
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     truco_init();
 
     menu = menu_new(stdscr, 20, 5);
 
-    menu_add_item(menu, "    Item 1    ");
-    menu_add_item(menu, "    Item 2    ");
-    menu_add_item(menu, "    Item 3    ");
+    menu_add_item(menu, "    Item 1    ", item1);
+    menu_add_item(menu, "    Item 2    ", item2);
+    menu_add_item(menu, "     Exit     ", quit);
 
-    menu_down_event(menu);
+    while (!q) {
+        clear();
+        menu_print(menu);
+        refresh();
 
-    menu_print(menu);
+        key = getch();
+        menu_key_event(menu, key);
 
-    refresh();
-    getch();
+    }
 
     menu_clean(menu);
 
@@ -31,4 +45,16 @@ int main(int argc, char *argv[]) {
     endwin();
 
     return 0;
+}
+
+void item1(void) {
+    
+}
+
+void item2(void) {
+
+}
+
+void quit(void) {
+    q = 1;
 }
