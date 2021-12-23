@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <truco.h>
 #include <main_menu_stage.h>
+#include <game_stage.h>
 
 void item1(void);
 void item2(void);
@@ -18,8 +19,14 @@ int main(int argc, char *argv[]) {
     truco_init();
 
     while (!truco->quit) {
-        if (truco->stage == MAIN_MENU_STAGE)
+        switch (truco->stage) {
+        case MAIN_MENU_STAGE:
             run_main_menu();
+            break;
+        case GAME_STAGE:
+            run_game();
+            break;
+        }
     }
 
     truco_clean();
