@@ -9,6 +9,8 @@ void quit(void);
 
 int main(int argc, char *argv[]) {
 
+    Truco *truco;
+
     initscr();
     noecho();
     curs_set(0);
@@ -16,12 +18,13 @@ int main(int argc, char *argv[]) {
     keypad(stdscr, TRUE);
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     init_pair(2, COLOR_CYAN, COLOR_BLACK);
-    truco_init();
+    
+    truco = truco_new();
 
     while (!truco->quit) {
         switch (truco->stage) {
         case MAIN_MENU_STAGE:
-            run_main_menu();
+            run_main_menu(truco);
             break;
         case GAME_STAGE:
             run_game();
@@ -29,7 +32,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    truco_clean();
+    truco_clean(truco);
     endwin();
 
     return 0;

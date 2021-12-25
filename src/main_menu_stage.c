@@ -1,22 +1,21 @@
 #include <main_menu_stage.h>
 
-#include <truco.h>
 #include <tmenu.h>
 #include <ncurses.h>
 
 int exit_stage;
 
-void one_oponent(void);
-void two_oponents(void);
-void three_oponents(void);
-void quit(void);
+void one_oponent(Truco *truco);
+void two_oponents(Truco *truco);
+void three_oponents(Truco *truco);
+void quit(Truco *truco);
 
-void run_main_menu(void) {
+void run_main_menu(Truco *truco) {
     Menu *menu;
     WINDOW *menuw;
 
     menuw = newwin(6, 22, 5, 20);
-    menu = menu_new(menuw, 1, 1);
+    menu = menu_new(truco, menuw, 1, 1);
 
     menu_add_item(menu, "    Un Oponente     ", one_oponent);
     menu_add_item(menu, "   Dos Oponentes    ", two_oponents);
@@ -49,25 +48,25 @@ void run_main_menu(void) {
     delwin(menuw);
 }
 
-void one_oponent(void) {
+void one_oponent(Truco *truco) {
     truco->playerCount = 2;
     truco->stage = GAME_STAGE;
     exit_stage = 1;
 }
 
-void two_oponents(void) {
+void two_oponents(Truco *truco) {
     truco->playerCount = 4;
     truco->stage = GAME_STAGE;
     exit_stage = 1;
 }
 
-void three_oponents(void) {
+void three_oponents(Truco *truco) {
     truco->playerCount = 6;
     truco->stage = GAME_STAGE;
     exit_stage = 1;
 }
 
-void quit(void) {
+void quit(Truco *truco) {
     exit_stage = 1;
     truco->quit = 1;
 }

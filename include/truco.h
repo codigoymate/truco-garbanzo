@@ -14,12 +14,10 @@ typedef struct {
 	Player *players[MAX_PLAYERS];
 } Truco;
 
-extern Truco *truco;
+Truco* truco_new(void);
+void truco_clean(Truco *truco);
 
-void truco_init(void);
-void truco_clean(void);
-
-void start_game(void);
+void start_game(Truco *truco);
 
 
 #endif

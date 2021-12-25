@@ -13,20 +13,21 @@ void clean_players(void) {
 	}
 }
 
-void truco_init(void) {
-	truco = (Truco *) malloc(sizeof(truco));
+Truco *truco_new(void) {
+	Truco *truco = (Truco *) malloc(sizeof(truco));
 	truco->quit = 0;
 	truco->stage = MAIN_MENU_STAGE;
+	return truco;
 }
 
-void truco_clean(void) {
-	clean_players();
+void truco_clean(Truco *truco) {
+	//clean_players();
 	free(truco);
 }
 
-void start_game(void) {
+void start_game(Truco *truco) {
 	// Clear existing players
-	clean_players();
+	//clean_players();
 
 	// Create players
 	truco->players[0] = player_new(getenv("USER"));

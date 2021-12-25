@@ -19,12 +19,13 @@ MenuItem *get_selected_item(Menu *menu) {
 	return NULL;
 }
 
-Menu *menu_new(WINDOW *wnd, int x, int y) {
+Menu *menu_new(Truco *truco, WINDOW *wnd, int x, int y) {
 	Menu *menu = (Menu *) malloc(sizeof(Menu));
 	menu->first = NULL;
 	menu->x = x; menu->y = y;
 	menu->cursor = menu->count = 0;
 	menu->wnd = wnd;
+	menu->truco = truco;
 
 	return menu;
 }
@@ -90,7 +91,7 @@ void menu_key_event(Menu *menu, int key) {
 		if (menu->cursor < 0) menu->cursor = menu->count - 1;
 		break;
 	case 10:
-		(*get_selected_item(menu)->action)();
+		(*get_selected_item(menu)->action)(menu->truco);
 		break;
 	
 	default:
