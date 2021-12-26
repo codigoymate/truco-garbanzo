@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
             run_main_menu(truco);
             break;
         case GAME_STAGE:
-            run_game();
+            run_game(truco);
             break;
         }
     }

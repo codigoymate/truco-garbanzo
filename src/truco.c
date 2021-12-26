@@ -1,46 +1,70 @@
 #include <truco.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <string_utils.h>
 
 Truco *truco;
-
-void clean_players(void) {
-	int i;
-	for (i = 0; i < MAX_PLAYERS; i ++) {
-		if (truco->players[i]) {
-			player_clear(truco->players[i]);
-		}
-	}
-}
 
 Truco *truco_new(void) {
 	Truco *truco = (Truco *) malloc(sizeof(truco));
 	truco->quit = 0;
 	truco->stage = MAIN_MENU_STAGE;
+	truco->first_player = NULL;
+	truco->last_player = NULL;
 	return truco;
 }
 
 void truco_clean(Truco *truco) {
-	//clean_players();
+	clean_players(truco);
 	free(truco);
 }
 
+void add_player(Truco *truco, const char *name) {
+	Player *player = (Player *) malloc(sizeof(Player));
+	player->name = string_set(NULL, name);
+	player->next = NULL;
+
+	if (truco->last_player == NULL) {
+		truco->last_player = player;
+		truco->first_player = player;
+	} else {
+		truco->last_player->next = player;
+		truco->last_player = player;
+	}
+}
+
+void clean_players(Truco *truco) {
+	Player *next;
+	Player *player = truco->first_player;
+
+	while (player) {
+		next = player->next;
+		string_clear(player->name);
+		free(player);
+		player = next;
+	}
+
+	truco->first_player = NULL;
+	truco->last_player = NULL;
+}
+
+
 void start_game(Truco *truco) {
 	// Clear existing players
-	//clean_players();
+	clean_players(truco);
 
 	// Create players
-	truco->players[0] = player_new(getenv("USER"));
-	truco->players[1] = player_new("Pepe");
+	add_player(truco, getenv("USER"));
+	add_player(truco, "Pepe");
 
 	if (truco->playerCount > 2) {
-		truco->players[2] = player_new("María");
-		truco->players[3] = player_new("Pablo");
+		add_player(truco, "María");
+		add_player(truco, "Pablo");
 	}
 
 	if (truco->playerCount > 4) {
-		truco->players[4] = player_new("Franco");
-		truco->players[5] = player_new("Pamela");
+		add_player(truco, "Franco");
+		add_player(truco, "Pamela");
 	}
 
 }

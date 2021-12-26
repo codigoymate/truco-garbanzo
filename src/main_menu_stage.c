@@ -50,18 +50,21 @@ void run_main_menu(Truco *truco) {
 
 void one_oponent(Truco *truco) {
     truco->playerCount = 2;
+    start_game(truco);
     truco->stage = GAME_STAGE;
     exit_stage = 1;
 }
 
 void two_oponents(Truco *truco) {
     truco->playerCount = 4;
+    start_game(truco);
     truco->stage = GAME_STAGE;
     exit_stage = 1;
 }
 
 void three_oponents(Truco *truco) {
     truco->playerCount = 6;
+    start_game(truco);
     truco->stage = GAME_STAGE;
     exit_stage = 1;
 }
