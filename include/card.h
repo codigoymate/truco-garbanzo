@@ -11,5 +11,7 @@ typedef struct {
 } Card;
 
 Card *card_new(int value, int type, int pow, int envido);
+char *card_long_name(Card *card);
+char *card_short_name(Card *card);
 
 #endif
