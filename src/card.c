@@ -1,6 +1,7 @@
 #include <card.h>
 #include <stdlib.h>
 #include <string_utils.h>
+#include <stdio.h>
 
 Card *card_new(int value, int type, int pow, int envido) {
 	Card *card = (Card *) malloc(sizeof(Card));
@@ -38,5 +39,20 @@ char *card_long_name(Card *card) {
 }
 
 char *card_short_name(Card *card) {
-	return NULL;
+	char name[] = {"12B"};
+	char type;
+
+	switch (card->type) {
+	case ORO: type = 'O'; break;
+	case COPAS: type = 'C'; break;
+	case ESPADAS: type = 'E'; break;
+	case BASTOS: type = 'B'; break;
+	
+	default:
+		break;
+	}
+
+	sprintf(name, "%d%c", card->value, type);
+
+	return string_set(NULL, name);
 }
