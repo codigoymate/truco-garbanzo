@@ -64,3 +64,13 @@ void deck_clean(Card *deck[]) {
 	}
 }
 
+void deck_merge(Card *deck[]) {
+	int i, r;
+	Card *tmp;
+	for (i = 0; i < 40; i ++) {
+		r = rand() % 40;
+		tmp = deck[i];
+		deck[i] = deck[r];
+		deck[r] = tmp;
+	}
+}

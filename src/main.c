@@ -3,6 +3,9 @@
 #include <main_menu_stage.h>
 #include <game_stage.h>
 
+#include <stdlib.h>
+#include <time.h>
+
 void item1(void);
 void item2(void);
 void quit(void);
@@ -10,6 +13,8 @@ void quit(void);
 int main(int argc, char *argv[]) {
 
     Truco *truco;
+
+    srand(time(NULL));
 
     initscr();
     noecho();

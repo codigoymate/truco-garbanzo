@@ -6,4 +6,6 @@
 void deck_init(Card *deck[]);
 void deck_clean(Card *deck[]);
 
+void deck_merge(Card *deck[]);
+
 #endif
