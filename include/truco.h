@@ -2,6 +2,7 @@
 #define TRUCO_H
 
 #include <player.h>
+#include <card.h>
 
 //#define MAX_PLAYERS			6
 
@@ -12,6 +13,7 @@ typedef struct {
 	int playerCount, quit, current_player;
 	int stage;
 	Player *first_player, *last_player;
+	Card *deck[40];
 } Truco;
 
 Truco* truco_new(void);

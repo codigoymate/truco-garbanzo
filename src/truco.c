@@ -2,6 +2,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <string_utils.h>
+#include <deck.h>
 
 Truco *truco_new(void) {
 	Truco *truco = (Truco *) malloc(sizeof(Truco));
@@ -10,11 +11,13 @@ Truco *truco_new(void) {
 	truco->first_player = NULL;
 	truco->last_player = NULL;
 	truco->current_player = 0;
+	deck_init(truco->deck);
 	return truco;
 }
 
 void truco_clean(Truco *truco) {
 	clean_players(truco);
+	deck_clean(truco->deck);
 	free(truco);
 }
 
