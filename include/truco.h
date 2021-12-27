@@ -20,6 +20,8 @@ void truco_clean(Truco *truco);
 void add_player(Truco *truco, const char *name);
 void clean_players(Truco *truco);
 
+Player *get_player(Truco *truco, int index);
+
 void start_game(Truco *truco);
 
 

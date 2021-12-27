@@ -48,6 +48,19 @@ void clean_players(Truco *truco) {
 	truco->last_player = NULL;
 }
 
+Player *get_player(Truco *truco, int index) {
+	Player *player = truco->first_player;
+	int i = 0;
+
+	while (player) {
+		if (i == index) return player;
+		player = player->next;
+		i ++;
+	}
+
+	return NULL;
+}
+
 
 void start_game(Truco *truco) {
 	// Clear existing players
@@ -65,6 +78,49 @@ void start_game(Truco *truco) {
 	if (truco->playerCount > 4) {
 		add_player(truco, "Franco");
 		add_player(truco, "Pamela");
+	}
+
+	switch (truco->playerCount) {
+	case 2:
+		get_player(truco, 0)->tx = 40;
+		get_player(truco, 0)->ty = 25;
+		get_player(truco, 1)->tx = 40;
+		get_player(truco, 1)->ty = 5;
+		break;
+	case 4:
+		get_player(truco, 0)->tx = 40;
+		get_player(truco, 0)->ty = 25;
+		get_player(truco, 1)->tx = 20;
+		get_player(truco, 1)->ty = 15;
+		get_player(truco, 2)->tx = 40;
+		get_player(truco, 2)->ty = 5;
+		get_player(truco, 3)->tx = 60;
+		get_player(truco, 3)->ty = 15;
+		break;
+
+	case 6:
+		get_player(truco, 0)->tx = 40;
+		get_player(truco, 0)->ty = 25;
+
+		get_player(truco, 1)->tx = 20;
+		get_player(truco, 1)->ty = 20;
+
+		get_player(truco, 2)->tx = 20;
+		get_player(truco, 2)->ty = 10;
+
+		get_player(truco, 3)->tx = 40;
+		get_player(truco, 3)->ty = 5;
+
+		get_player(truco, 4)->tx = 60;
+		get_player(truco, 4)->ty = 10;
+
+		get_player(truco, 5)->tx = 60;
+		get_player(truco, 5)->ty = 20;
+
+		break;
+	
+	default:
+		break;
 	}
 
 }

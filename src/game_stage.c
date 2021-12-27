@@ -10,7 +10,7 @@ void run_game(Truco *truco) {
 		clear();
 
 		for (player = truco->first_player; player != NULL; player = player->next) {
-			printw("%s\n", player->name);
+			mvprintw(player->ty, player->tx, "%s", player->name);
 		}
 
 		refresh();

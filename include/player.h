@@ -3,6 +3,7 @@
 
 typedef struct Player {
 	char *name;
+	int tx, ty;
 	struct Player *next;
 } Player;
 
