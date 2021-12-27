@@ -9,7 +9,7 @@
 #define GAME_STAGE				1
 
 typedef struct {
-	int playerCount, quit;
+	int playerCount, quit, current_player;
 	int stage;
 	Player *first_player, *last_player;
 } Truco;
