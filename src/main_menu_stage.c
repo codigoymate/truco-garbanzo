@@ -28,13 +28,13 @@ void run_main_menu(Truco *truco) {
         clear();
         wclear(menuw);
 
-        // Title
+        /* Title */
         attron(COLOR_PAIR(2));
         mvprintw(2, 5, "%s", "<< Truco Argentino >>");
         attroff(COLOR_PAIR(2));
 
 
-        // Menu
+        /* Menu */
         box(menuw, 0, 0);
         menu_print(menu);
 

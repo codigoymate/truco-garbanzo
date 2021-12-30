@@ -6,7 +6,7 @@
 
 void run_game(Truco *truco) {
 
-	//Player *player;
+	/*Player *player;*/
 
     while (1) {
 		int i = 0, x = 1, y = 1;

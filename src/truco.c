@@ -65,10 +65,10 @@ Player *get_player(Truco *truco, int index) {
 
 
 void start_game(Truco *truco) {
-	// Clear existing players
+	/* Clear existing players */
 	clean_players(truco);
 
-	// Create players
+	/* Create players */
 	add_player(truco, getenv("USER"));
 	add_player(truco, "Pepe");
 

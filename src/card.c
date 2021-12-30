@@ -22,7 +22,9 @@ char *card_long_name(Card *card) {
 	case 11: name = string_set(name, "caballo"); break;
 	case 12: name = string_set(name, "rey"); break;
 	default: {
-		char val[] = {card->value + 48, '\0'};
+		char val[2];
+		val[0] = card->value + 48;
+		val[1] = '\0';
 		name = string_set(name, val);
 		}
 	}

@@ -4,8 +4,6 @@
 #include <player.h>
 #include <card.h>
 
-//#define MAX_PLAYERS			6
-
 #define MAIN_MENU_STAGE			0
 #define GAME_STAGE				1
 
