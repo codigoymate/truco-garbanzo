@@ -22,9 +22,8 @@ void truco_clean(Truco *truco) {
 }
 
 void add_player(Truco *truco, const char *name) {
-	Player *player = (Player *) malloc(sizeof(Player));
-	player->name = string_set(NULL, name);
-	player->next = NULL;
+
+	Player *player = player_new(name);
 
 	if (truco->last_player == NULL) {
 		truco->last_player = player;

@@ -74,3 +74,18 @@ void deck_merge(Card *deck[]) {
 		deck[r] = tmp;
 	}
 }
+
+void deal_cards(Truco *truco) {
+	int deck_index = 0;
+	Player *player;
+
+	for (player = truco->first_player; player != NULL; player = player->next) {
+		int i = 0;
+		for (i = 0; i < 3; i ++) {
+			player->hand[i] = truco->deck[deck_index];
+			player->played[i] = NULL;
+			deck_index ++;
+		}
+	}
+
+}
