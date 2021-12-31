@@ -72,17 +72,20 @@ void start_game(Truco *truco) {
 	add_player(truco, getenv("USER"));
 	add_player(truco, "Pepe");
 
-	if (truco->playerCount > 2) {
+	if (truco->player_count > 2) {
 		add_player(truco, "María");
 		add_player(truco, "Pablo");
 	}
 
-	if (truco->playerCount > 4) {
+	if (truco->player_count > 4) {
 		add_player(truco, "Franco");
 		add_player(truco, "Pamela");
 	}
 
-	switch (truco->playerCount) {
+	/* Select the start player */
+	truco->start_player = rand() % truco->player_count;
+
+	switch (truco->player_count) {
 	case 2:
 		get_player(truco, 0)->tx = 40;
 		get_player(truco, 0)->ty = 25;
@@ -124,5 +127,9 @@ void start_game(Truco *truco) {
 	default:
 		break;
 	}
+
+}
+
+void next_player(Truco *truco) {
 
 }

@@ -8,7 +8,7 @@
 #define GAME_STAGE				1
 
 typedef struct {
-	int playerCount, quit, current_player;
+	int player_count, quit, current_player, start_player;
 	int stage;
 	Player *first_player, *last_player;
 	Card *deck[40];
@@ -23,6 +23,12 @@ void clean_players(Truco *truco);
 Player *get_player(Truco *truco, int index);
 
 void start_game(Truco *truco);
+
+/**
+ * @brief Determines who is the next player.
+ * @param truco Truco instance.
+ */
+void next_player(Truco *truco);
 
 
 #endif
