@@ -4,6 +4,24 @@
 #include <string_utils.h>
 #include <deck.h>
 
+/**
+ * @brief Return 1 if the hand n is clear (nobody played)
+ * 
+ * @param truco truco instance
+ * @param n number of hand
+ * @return int 1 if n is clear
+ */
+int is_hand_clear(Truco *truco, int n);
+
+/**
+ * @brief Return 1 if the hand n is full (all played)
+ * 
+ * @param truco truco instance
+ * @param n number of hand
+ * @return int 1 if n is full
+ */
+int is_hand_full(Truco *truco, int n);
+
 Truco *truco_new(void) {
 	Truco *truco = (Truco *) malloc(sizeof(Truco));
 	truco->quit = 0;
@@ -129,6 +147,70 @@ void start_game(Truco *truco) {
 
 }
 
+int is_hand_clear(Truco *truco, int n) {
+	Player *player;
+
+	for (player = truco->first_player; player; player = player->next) {
+		if (player->played[n]) return 0;
+	}
+
+	return 1;
+}
+
+int is_hand_full(Truco *truco, int n) {
+	Player *player;
+
+	for (player = truco->first_player; player; player = player->next) {
+		if (!player->played[n]) return 0;
+	}
+
+	return 1;
+}
+
 void next_player(Truco *truco) {
 
+	if (truco->hand == 0 && is_hand_clear(truco, truco->hand)) {
+		truco->current_player = truco->start_player;
+		return ;
+	}
+
+	/* If nobody played the first hand*/
+	if (is_hand_clear(truco, truco->hand)) {
+		truco->current_player ++;
+		if (truco->current_player >= truco->player_count) truco->current_player = 0;
+	} else if (is_hand_full(truco, truco->hand)) {
+		/* If all played the hand ... */
+		/* TODO: Check who won the hand */
+
+		if (truco->hand == 2) {
+			next_round(truco);
+			return ;
+		}
+
+		/* Ends the hand */
+		truco->hand ++;
+		truco->current_player ++;
+		if (truco->current_player >= truco->player_count) truco->current_player = 0;
+	} else {
+		/* Hand not finish */
+		truco->current_player ++;
+		if (truco->current_player >= truco->player_count) truco->current_player = 0;
+	}
+}
+
+void next_round(Truco *truco) {
+
+	/* Next "start player" */
+	truco->start_player ++;
+	if (truco->start_player >= truco->player_count) truco->start_player = 0;
+
+	truco->current_player = truco->start_player;
+
+	truco->hand = 0;
+
+	/* Merge deck */
+	deck_merge(truco->deck);
+
+	/* Deal cards */
+	deal_cards(truco);
 }

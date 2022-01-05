@@ -9,6 +9,7 @@
 
 typedef struct {
 	int player_count, quit, current_player, start_player;
+	int hand;
 	int stage;
 	Player *first_player, *last_player;
 	Card *deck[40];
@@ -29,6 +30,9 @@ void start_game(Truco *truco);
  * @param truco Truco instance.
  */
 void next_player(Truco *truco);
+
+
+void next_round(Truco *truco);
 
 
 #endif
