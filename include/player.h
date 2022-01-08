@@ -5,7 +5,7 @@
 
 typedef struct Player {
 	char *name;
-	int tx, ty;
+	int id, tx, ty;
 	Card *hand[3], *played[3];
 
 	struct Player *next;

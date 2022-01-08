@@ -25,13 +25,13 @@ Player *get_player(Truco *truco, int index);
 
 void start_game(Truco *truco);
 
+void increment_current_player(Truco *truco);
+
 /**
  * @brief Determines who is the next player.
  * @param truco Truco instance.
  */
 void next_player(Truco *truco);
-
-
 void next_round(Truco *truco);
 
 

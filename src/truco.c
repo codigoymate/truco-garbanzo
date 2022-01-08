@@ -4,6 +4,8 @@
 #include <string_utils.h>
 #include <deck.h>
 
+int get_hand_winner(Truco *truco);
+
 /**
  * @brief Return 1 if the hand n is clear (nobody played)
  * 
@@ -168,6 +170,7 @@ int is_hand_full(Truco *truco, int n) {
 }
 
 void next_player(Truco *truco) {
+	int winner;
 
 	if (truco->hand == 0 && is_hand_clear(truco, truco->hand)) {
 		truco->current_player = truco->start_player;
@@ -176,12 +179,16 @@ void next_player(Truco *truco) {
 
 	/* If nobody played the first hand*/
 	if (is_hand_clear(truco, truco->hand)) {
-		truco->current_player ++;
-		if (truco->current_player >= truco->player_count) truco->current_player = 0;
+		increment_current_player(truco);
 	} else if (is_hand_full(truco, truco->hand)) {
 		/* If all played the hand ... */
-		/* TODO: Check who won the hand */
+		
+		winner = get_hand_winner(truco);
 
+		/* TODO: check rest of hands */
+		/* TODO: check parda */
+
+		/* Ends round on last hand */
 		if (truco->hand == 2) {
 			next_round(truco);
 			return ;
@@ -189,12 +196,12 @@ void next_player(Truco *truco) {
 
 		/* Ends the hand */
 		truco->hand ++;
-		truco->current_player ++;
-		if (truco->current_player >= truco->player_count) truco->current_player = 0;
+
+		/* Hand winner continues */
+		truco->current_player = winner;
 	} else {
 		/* Hand not finish */
-		truco->current_player ++;
-		if (truco->current_player >= truco->player_count) truco->current_player = 0;
+		increment_current_player(truco);
 	}
 }
 
@@ -213,4 +220,35 @@ void next_round(Truco *truco) {
 
 	/* Deal cards */
 	deal_cards(truco);
+}
+
+void increment_current_player(Truco *truco) {
+	truco->current_player ++;
+	if (truco->current_player >= truco->player_count) truco->current_player = 0;
+}
+
+int get_hand_winner(Truco *truco) {
+	Player *list[8], *player;
+	int i = 0;
+
+	/* Load player list */
+	for (player = truco->first_player; player; player = player->next) {
+		list[i] = player; i ++;
+	}
+
+	/* Sort players by card power */
+	for (i = 0; i < truco->player_count - 1; i ++) {
+		if (list[i]->played[truco->hand]->power < list[i + 1]->played[truco->hand]->power) {
+			player = list[i];
+			list[i] = list[i + 1];
+			list[i + 1] = player;
+			i = -1;
+		}
+	}
+
+	/* Parda */
+	if (list[0]->played[truco->hand]->power == list[1]->played[truco->hand]->power)
+		return -1;
+
+	return list[0]->id;
 }
