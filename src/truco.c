@@ -198,7 +198,11 @@ void next_player(Truco *truco) {
 		truco->hand ++;
 
 		/* Hand winner continues */
-		truco->current_player = winner;
+		if (winner != -1)
+			truco->current_player = winner;
+		else { /* Parda */
+			increment_current_player(truco);
+		}
 	} else {
 		/* Hand not finish */
 		increment_current_player(truco);

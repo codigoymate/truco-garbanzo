@@ -9,15 +9,6 @@ void draw_game(Truco *truco);
 
 void run_game(Truco *truco) {
 
-	/*
-
-	- merge
-	- deal
-	- next player
-	- play
-
-	*/
-
 	next_round(truco);
 
     while (1) {
