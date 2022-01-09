@@ -2,6 +2,8 @@
 #include <string_utils.h>
 #include <stdlib.h>
 
+#include <colors.h>
+
 void item_clean(MenuItem *item) {
 	string_clear(item->name);
 	free(item);
@@ -68,7 +70,7 @@ void menu_print(Menu *menu) {
 	int yy = menu->y, index = 0;
 	MenuItem *node = menu->first;
 
-	wattron(menu->wnd, COLOR_PAIR(1));
+	wattron(menu->wnd, COLOR_PAIR(PAIR_MENU));
 
 	for (node = menu->first; node != NULL; node = node->next) {
 		if (menu->cursor == index) wattron(menu->wnd, A_REVERSE);
@@ -77,7 +79,7 @@ void menu_print(Menu *menu) {
 		yy ++; index ++;
     }
 
-	wattroff(menu->wnd, COLOR_PAIR(1));
+	wattroff(menu->wnd, COLOR_PAIR(PAIR_MENU));
 }
 
 void menu_key_event(Menu *menu, int key) {
