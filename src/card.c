@@ -5,6 +5,8 @@
 
 void rectangle(WINDOW *wnd, int x, int y, int w, int h);
 
+void draw_coin(WINDOW *wnd, int x, int y);
+
 Card *card_new(int value, int type, int pow, int envido) {
 	Card *card = (Card *) malloc(sizeof(Card));
 	card->value = value;
@@ -82,6 +84,7 @@ void card_draw(WINDOW *wnd, Card *card, int x, int y) {
 	case ORO:
 		wattron(wnd, COLOR_PAIR(4));
 		mvwaddch(wnd, y + 2, x + 1, 'O');
+		draw_coin(wnd, x, y);
 		wattroff(wnd, COLOR_PAIR(4));
 		break;
 	case COPAS:
@@ -113,4 +116,13 @@ void rectangle(WINDOW *wnd, int x, int y, int w, int h) {
     mvwaddch(wnd, y + h, x, ACS_LLCORNER);
     mvwaddch(wnd, y, x + w, ACS_URCORNER);
     mvwaddch(wnd, y + h, x + w, ACS_LRCORNER);
+}
+
+void draw_coin(WINDOW *wnd, int x, int y) {
+	int c = ACS_CKBOARD;
+	wattron(wnd, A_ALTCHARSET);
+	mvwprintw(wnd, y + 2, x + 1, "   %c%c%c", c, c, c);
+	mvwprintw(wnd, y + 3, x + 1, "  %c%c%c%c%c", c, c, c, c, c);
+	mvwprintw(wnd, y + 4, x + 1, "   %c%c%c", c, c, c);
+	wattroff(wnd, A_ALTCHARSET);
 }
