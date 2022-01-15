@@ -10,6 +10,7 @@ Player *player_new(const char *name) {
 	player->name = string_set(NULL, name);
 	player->id = id ++; 
 	player->next = NULL;
+	player->score = 0;
 
 	for (i = 0; i < 3; i ++) {
 		player->hand[i] = NULL;

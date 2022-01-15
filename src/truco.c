@@ -180,29 +180,79 @@ void next_player(Truco *truco) {
 	/* If nobody played the first hand*/
 	if (is_hand_clear(truco, truco->hand)) {
 		increment_current_player(truco);
+	/* If all played the hand ... */
 	} else if (is_hand_full(truco, truco->hand)) {
-		/* If all played the hand ... */
-		
 		winner = get_hand_winner(truco);
 
-		/* TODO: check rest of hands */
-		/* TODO: check parda */
+		switch (truco->hand) {
+		case 0:
+			if (winner != -1) {
+				truco->winners[0] = winner % 2;
+				truco->current_player = winner;
+			} else {
+				truco->winners[0] = 2; /* Tie */
+				increment_current_player(truco);
+			}
+			break;
+		case 1:
+			/* Tie and any team won the hand 0 ... */
+			if (winner == -1 && truco->winners[0] != 2) {
+				/* TODO: team which won hand 0 */
+				next_round(truco);
+				return ;
+			/* Tie and Tie hand 0 ...*/
+			} else if (winner == -1 && truco->winners[0] == 2) {
+				truco->winners[1] = 2; /* Tie */
+				increment_current_player(truco);
+			/* Any team wins the hand 0 and any the hand 1 ...*/
+			} else {
+				/* Any team wins both hads (0 and 1) } else {
 
-		/* Ends round on last hand */
-		if (truco->hand == 2) {
+				}... */
+				if (winner % 2 == truco->winners[0]) {
+					/* TODO: team which won hand 0 and 1 */
+					next_round(truco);
+					return;
+				/* Team 1 wins hand 0 and team 2 wins hand 1 */
+				} else {
+					truco->winners[1] = winner % 2; 
+					truco->current_player = winner;
+				}
+			}
+			break;
+		case 2:
+			/* Tie */
+			if (winner == -1) {
+				if (truco->winners[0] != 2) {
+					/* TODO: Wins who won first hand */
+				/* Tie all hands */
+				} else {
+					/* TODO: Wins "start_player" */
+				}
+			/* Player winner third hand */
+			} else {
+				/* TODO: Team winner third hand */
+			}
+
 			next_round(truco);
 			return ;
 		}
+
+		/* Ends round on last hand */
+		/*if (truco->hand == 2) {
+			next_round(truco);
+			return ;
+		}*/
 
 		/* Ends the hand */
 		truco->hand ++;
 
 		/* Hand winner continues */
-		if (winner != -1)
+		/*if (winner != -1)
 			truco->current_player = winner;
-		else { /* Parda */
+		else {  Parda 
 			increment_current_player(truco);
-		}
+		}*/
 	} else {
 		/* Hand not finish */
 		increment_current_player(truco);
@@ -210,6 +260,7 @@ void next_player(Truco *truco) {
 }
 
 void next_round(Truco *truco) {
+	int i;
 
 	/* Next "start player" */
 	truco->start_player ++;
@@ -218,6 +269,16 @@ void next_round(Truco *truco) {
 	truco->current_player = truco->start_player;
 
 	truco->hand = 0;
+	
+	for (i = 0; i < 3; i ++) {
+		truco->winners[i] = -1;
+		/*
+			-1: Not played
+			0 : Team 1
+			1 : Team 2
+			2 : Tie
+		*/
+	}
 
 	/* Merge deck */
 	deck_merge(truco->deck);

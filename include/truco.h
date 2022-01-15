@@ -10,7 +10,7 @@
 typedef struct {
 	int player_count, quit, current_player, start_player;
 	int hand;
-	int stage;
+	int stage, winners[3];
 	Player *first_player, *last_player;
 	Card *deck[40];
 } Truco;
