@@ -6,9 +6,12 @@
 #include <ia.h>
 #include <tmenu.h>
 
+/*int exit_stage;*/
+
 void draw_game(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
+void back(Truco *truco);
 
 void run_game(Truco *truco) {
 
@@ -23,10 +26,13 @@ void run_game(Truco *truco) {
 	gamew = newwin(25, 55, 1, 2);
 
 	menu_add_item(menu, "   Next   ", next);
+	menu_add_item(menu, "   Back   ", back);
 
 	next_round(truco);
 
-    while (1) {
+	/*exit_stage = 0;*/
+
+    while (!truco->exit_stage) {
 		clear();
 
 		draw_game(truco, gamew);
@@ -76,4 +82,9 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 void next(Truco *truco) {
 	ia_play(truco);
 	next_player(truco);
+}
+
+void back(Truco *truco) {
+	truco->stage = MAIN_MENU_STAGE;
+	truco->exit_stage = 1;
 }

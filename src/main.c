@@ -27,6 +27,9 @@ int main(int argc, char *argv[]) {
     truco = truco_new();
 
     while (!truco->quit) {
+
+        truco->exit_stage = 0;
+
         switch (truco->stage) {
         case MAIN_MENU_STAGE:
             run_main_menu(truco);

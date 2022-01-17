@@ -3,8 +3,6 @@
 #include <tmenu.h>
 #include <ncurses.h>
 
-int exit_stage;
-
 void one_oponent(Truco *truco);
 void two_oponents(Truco *truco);
 void three_oponents(Truco *truco);
@@ -22,9 +20,9 @@ void run_main_menu(Truco *truco) {
     menu_add_item(menu, "   Tres Oponentes   ", three_oponents);
     menu_add_item(menu, "       Salir        ", quit);
 
-    exit_stage = 0;
+    /*truco->exit_stage = 0;*/
 
-    while (!exit_stage) {
+    while (!truco->exit_stage) {
         clear();
         wclear(menuw);
 
@@ -52,24 +50,24 @@ void one_oponent(Truco *truco) {
     truco->player_count = 2;
     start_game(truco);
     truco->stage = GAME_STAGE;
-    exit_stage = 1;
+    truco->exit_stage = 1;
 }
 
 void two_oponents(Truco *truco) {
     truco->player_count = 4;
     start_game(truco);
     truco->stage = GAME_STAGE;
-    exit_stage = 1;
+    truco->exit_stage = 1;
 }
 
 void three_oponents(Truco *truco) {
     truco->player_count = 6;
     start_game(truco);
     truco->stage = GAME_STAGE;
-    exit_stage = 1;
+    truco->exit_stage = 1;
 }
 
 void quit(Truco *truco) {
-    exit_stage = 1;
+    truco->exit_stage = 1;
     truco->quit = 1;
 }

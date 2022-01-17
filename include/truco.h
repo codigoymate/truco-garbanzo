@@ -13,6 +13,9 @@ typedef struct {
 	int stage, winners[3];
 	Player *first_player, *last_player;
 	Card *deck[40];
+
+	/* TUI */
+	int exit_stage;
 } Truco;
 
 Truco* truco_new(void);
