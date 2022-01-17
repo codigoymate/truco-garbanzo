@@ -106,40 +106,40 @@ void start_game(Truco *truco) {
 
 	switch (truco->player_count) {
 	case 2:
-		get_player(truco, 0)->tx = 40;
-		get_player(truco, 0)->ty = 25;
-		get_player(truco, 1)->tx = 40;
-		get_player(truco, 1)->ty = 5;
+		get_player(truco, 0)->tx = 20;
+		get_player(truco, 0)->ty = 20;
+		get_player(truco, 1)->tx = 20;
+		get_player(truco, 1)->ty = 0;
 		break;
 	case 4:
-		get_player(truco, 0)->tx = 40;
-		get_player(truco, 0)->ty = 25;
-		get_player(truco, 1)->tx = 20;
-		get_player(truco, 1)->ty = 15;
-		get_player(truco, 2)->tx = 40;
-		get_player(truco, 2)->ty = 5;
-		get_player(truco, 3)->tx = 60;
-		get_player(truco, 3)->ty = 15;
+		get_player(truco, 0)->tx = 20;
+		get_player(truco, 0)->ty = 20;
+		get_player(truco, 1)->tx = 0;
+		get_player(truco, 1)->ty = 10;
+		get_player(truco, 2)->tx = 20;
+		get_player(truco, 2)->ty = 0;
+		get_player(truco, 3)->tx = 40;
+		get_player(truco, 3)->ty = 10;
 		break;
 
 	case 6:
-		get_player(truco, 0)->tx = 40;
-		get_player(truco, 0)->ty = 25;
+		get_player(truco, 0)->tx = 20;
+		get_player(truco, 0)->ty = 20;
 
-		get_player(truco, 1)->tx = 20;
-		get_player(truco, 1)->ty = 20;
+		get_player(truco, 1)->tx = 0;
+		get_player(truco, 1)->ty = 15;
 
-		get_player(truco, 2)->tx = 20;
-		get_player(truco, 2)->ty = 10;
+		get_player(truco, 2)->tx = 0;
+		get_player(truco, 2)->ty = 5;
 
-		get_player(truco, 3)->tx = 40;
-		get_player(truco, 3)->ty = 5;
+		get_player(truco, 3)->tx = 20;
+		get_player(truco, 3)->ty = 0;
 
-		get_player(truco, 4)->tx = 60;
-		get_player(truco, 4)->ty = 10;
+		get_player(truco, 4)->tx = 40;
+		get_player(truco, 4)->ty = 5;
 
-		get_player(truco, 5)->tx = 60;
-		get_player(truco, 5)->ty = 20;
+		get_player(truco, 5)->tx = 40;
+		get_player(truco, 5)->ty = 15;
 
 		break;
 	
