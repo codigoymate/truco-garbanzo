@@ -6,8 +6,6 @@
 #include <ia.h>
 #include <tmenu.h>
 
-/*int exit_stage;*/
-
 void draw_game(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
@@ -30,8 +28,6 @@ void run_game(Truco *truco) {
 
 	next_round(truco);
 
-	/*exit_stage = 0;*/
-
     while (!truco->exit_stage) {
 		clear();
 
@@ -39,8 +35,6 @@ void run_game(Truco *truco) {
 
 		box(menuw, 0, 0);
 		menu_print(menu);
-
-		/*box(gamew, 0, 0);*/
 
 		refresh();
 		wrefresh(gamew);

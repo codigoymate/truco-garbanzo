@@ -20,8 +20,6 @@ void run_main_menu(Truco *truco) {
     menu_add_item(menu, "   Tres Oponentes   ", three_oponents);
     menu_add_item(menu, "       Salir        ", quit);
 
-    /*truco->exit_stage = 0;*/
-
     while (!truco->exit_stage) {
         clear();
         wclear(menuw);
