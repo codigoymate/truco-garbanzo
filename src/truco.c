@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string_utils.h>
 #include <deck.h>
+#include <points.h>
 
 int get_hand_winner(Truco *truco);
 
@@ -197,7 +198,8 @@ void next_player(Truco *truco) {
 		case 1:
 			/* Tie and any team won the hand 0 ... */
 			if (winner == -1 && truco->winners[0] != 2) {
-				/* TODO: team which won hand 0 */
+				/* Give "1" point to winner team */
+				give_points(truco, 1, truco->winners[0]);
 				next_round(truco);
 				return ;
 			/* Tie and Tie hand 0 ...*/
@@ -206,11 +208,10 @@ void next_player(Truco *truco) {
 				increment_current_player(truco);
 			/* Any team wins the hand 0 and any the hand 1 ...*/
 			} else {
-				/* Any team wins both hads (0 and 1) } else {
-
-				}... */
+				/* Any team wins both hads (0 and 1) ... */
 				if (winner % 2 == truco->winners[0]) {
-					/* TODO: team which won hand 0 and 1 */
+					/* Team which won hand 0 and 1 */
+					give_points(truco, 1, truco->winners[0]);
 					next_round(truco);
 					return;
 				/* Team 1 wins hand 0 and team 2 wins hand 1 */
@@ -224,35 +225,26 @@ void next_player(Truco *truco) {
 			/* Tie */
 			if (winner == -1) {
 				if (truco->winners[0] != 2) {
-					/* TODO: Wins who won first hand */
+					/* Wins who won first hand */
+					give_points(truco, 1, truco->winners[0]);
 				/* Tie all hands */
 				} else {
-					/* TODO: Wins "start_player" */
+					/* Wins "start_player" */
+					give_points(truco, 1, truco->start_player % 2);
 				}
 			/* Player winner third hand */
 			} else {
-				/* TODO: Team winner third hand */
+				/* Team winner third hand */
+				give_points(truco, 1, winner % 2);
 			}
 
 			next_round(truco);
 			return ;
 		}
 
-		/* Ends round on last hand */
-		/*if (truco->hand == 2) {
-			next_round(truco);
-			return ;
-		}*/
-
 		/* Ends the hand */
 		truco->hand ++;
-
-		/* Hand winner continues */
-		/*if (winner != -1)
-			truco->current_player = winner;
-		else {  Parda 
-			increment_current_player(truco);
-		}*/
+		
 	} else {
 		/* Hand not finish */
 		increment_current_player(truco);
