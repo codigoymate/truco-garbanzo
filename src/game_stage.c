@@ -60,6 +60,10 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 			wattron(wnd, A_REVERSE);
 		mvwprintw(wnd, player->ty, player->tx, "%s", player->name);
 
+		/* Markup the start player */
+		if (i == truco->start_player)
+			wprintw(wnd, "%s", " (*)");
+
 		for (c = 0; c < 3; c ++) {
 			if (!player->played[c]) continue;
 			name = card_short_name(player->played[c]);
