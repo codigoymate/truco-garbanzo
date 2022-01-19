@@ -7,6 +7,7 @@
 #include <tmenu.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
+void draw_score(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
 void back(Truco *truco);
@@ -16,12 +17,13 @@ void run_game(Truco *truco) {
 	int key;
 
 	Menu *menu;
-	WINDOW *menuw, *gamew;
+	WINDOW *menuw, *gamew, *scorew;
 
-	menuw = newwin(4, 20, 3, 60);
+	menuw = newwin(4, 12, 3, 60);
 	menu = menu_new(truco, menuw, 1, 1);
 
 	gamew = newwin(25, 55, 1, 2);
+	scorew = newwin(3, 15, 2, 80);
 
 	menu_add_item(menu, "   Next   ", next);
 	menu_add_item(menu, "   Back   ", back);
@@ -30,8 +32,12 @@ void run_game(Truco *truco) {
 
     while (!truco->exit_stage) {
 		clear();
+		wclear(gamew);
+		wclear(scorew);
 
 		draw_game(truco, gamew);
+
+		draw_score(truco, scorew);
 
 		box(menuw, 0, 0);
 		menu_print(menu);
@@ -39,6 +45,7 @@ void run_game(Truco *truco) {
 		refresh();
 		wrefresh(gamew);
 		wrefresh(menuw);
+		wrefresh(scorew);
 
 		key = getch();
 
@@ -47,6 +54,7 @@ void run_game(Truco *truco) {
 
 	delwin(gamew);
 	delwin(menuw);
+	delwin(scorew);
 	menu_clean(menu);
 }
 
@@ -85,4 +93,9 @@ void next(Truco *truco) {
 void back(Truco *truco) {
 	truco->stage = MAIN_MENU_STAGE;
 	truco->exit_stage = 1;
+}
+
+void draw_score(Truco *truco, WINDOW *wnd) {
+	wprintw(wnd, "Nosotros: %d\n", get_player(truco, 0)->score);
+	wprintw(wnd, "Ellos: %d\n", get_player(truco, 1)->score);
 }
