@@ -32,6 +32,7 @@ Truco *truco_new(void) {
 	truco->first_player = NULL;
 	truco->last_player = NULL;
 	truco->current_player = 0;
+	truco->round_finished = 0;
 	deck_init(truco->deck);
 	return truco;
 }
@@ -200,7 +201,8 @@ void next_player(Truco *truco) {
 			if (winner == -1 && truco->winners[0] != 2) {
 				/* Give "1" point to winner team */
 				give_points(truco, 1, truco->winners[0]);
-				next_round(truco);
+				/*next_round(truco);*/
+				truco->round_finished = 1;
 				return ;
 			/* Tie and Tie hand 0 ...*/
 			} else if (winner == -1 && truco->winners[0] == 2) {
@@ -212,7 +214,8 @@ void next_player(Truco *truco) {
 				if (winner % 2 == truco->winners[0]) {
 					/* Team which won hand 0 and 1 */
 					give_points(truco, 1, truco->winners[0]);
-					next_round(truco);
+					/*next_round(truco);*/
+					truco->round_finished = 1;
 					return;
 				/* Team 1 wins hand 0 and team 2 wins hand 1 */
 				} else {
@@ -238,7 +241,8 @@ void next_player(Truco *truco) {
 				give_points(truco, 1, winner % 2);
 			}
 
-			next_round(truco);
+			/*next_round(truco);*/
+			truco->round_finished = 1;
 			return ;
 		}
 

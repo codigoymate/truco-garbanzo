@@ -15,7 +15,7 @@ typedef struct {
 	Card *deck[40];
 
 	/* TUI */
-	int exit_stage;
+	int exit_stage, round_finished;
 } Truco;
 
 Truco* truco_new(void);

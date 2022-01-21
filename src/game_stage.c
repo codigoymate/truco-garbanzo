@@ -8,6 +8,7 @@
 
 void draw_game(Truco *truco, WINDOW *wnd);
 void draw_score(Truco *truco, WINDOW *wnd);
+void draw_round_results(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
 void back(Truco *truco);
@@ -17,13 +18,14 @@ void run_game(Truco *truco) {
 	int key;
 
 	Menu *menu;
-	WINDOW *menuw, *gamew, *scorew;
+	WINDOW *menuw, *gamew, *scorew, *resultsw;
 
 	menuw = newwin(4, 12, 3, 60);
 	menu = menu_new(truco, menuw, 1, 1);
 
 	gamew = newwin(25, 55, 1, 2);
 	scorew = newwin(3, 15, 2, 80);
+	resultsw = newwin(3, 15, 10, 80);
 
 	menu_add_item(menu, "   Next   ", next);
 	menu_add_item(menu, "   Back   ", back);
@@ -35,26 +37,42 @@ void run_game(Truco *truco) {
 		wclear(gamew);
 		wclear(scorew);
 
+		if (truco->round_finished) wclear(resultsw);
+
 		draw_game(truco, gamew);
 
 		draw_score(truco, scorew);
 
-		box(menuw, 0, 0);
-		menu_print(menu);
+		if (!truco->round_finished) {
+			box(menuw, 0, 0);
+			menu_print(menu);
+		} else {
+			draw_round_results(truco, resultsw);
+		}
 
 		refresh();
 		wrefresh(gamew);
-		wrefresh(menuw);
+
+		if (!truco->round_finished)
+			wrefresh(menuw);
+		else wrefresh(resultsw);
+
 		wrefresh(scorew);
 
 		key = getch();
 
-		menu_key_event(menu, key);
+		if (!truco->round_finished)
+			menu_key_event(menu, key);
+		else {
+			truco->round_finished = 0;
+			next_round(truco);
+		}
 	}
 
 	delwin(gamew);
 	delwin(menuw);
 	delwin(scorew);
+	delwin(resultsw);
 	menu_clean(menu);
 }
 
@@ -98,4 +116,8 @@ void back(Truco *truco) {
 void draw_score(Truco *truco, WINDOW *wnd) {
 	wprintw(wnd, "Nosotros: %d\n", get_player(truco, 0)->score);
 	wprintw(wnd, "Ellos: %d\n", get_player(truco, 1)->score);
+}
+
+void draw_round_results(Truco *truco, WINDOW *wnd) {
+	wprintw(wnd, "Round finished.");
 }
