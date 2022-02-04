@@ -5,9 +5,8 @@
 
 #include <colors.h>
 
-void rectangle(WINDOW *wnd, int x, int y, int w, int h);
-
 void draw_coin(WINDOW *wnd, int x, int y);
+void draw_cup(WINDOW *wnd, int x, int y);
 
 Card *card_new(int value, int type, int pow, int envido) {
 	Card *card = (Card *) malloc(sizeof(Card));
@@ -65,8 +64,6 @@ char *card_short_name(Card *card) {
 
 void card_draw(WINDOW *wnd, Card *card, int x, int y) {
 
-	int w = 10, h = 6, i, j; 
-
 	switch (card->type) {
 	case ORO:
 		draw_coin(wnd, x, y);
@@ -75,6 +72,7 @@ void card_draw(WINDOW *wnd, Card *card, int x, int y) {
 		wattroff(wnd, COLOR_PAIR(PAIR_CARD_ORO) | A_ALTCHARSET);
 		break;
 	case COPAS:
+		draw_cup(wnd, x, y);
 		wattron(wnd, COLOR_PAIR(PAIR_CARD_COPAS));
 		mvwaddch(wnd, y + 2, x + 1, 'C');
 		wattroff(wnd, COLOR_PAIR(PAIR_CARD_COPAS));
@@ -124,4 +122,19 @@ void draw_coin(WINDOW *wnd, int x, int y) {
 			i ++;
 		}
 	
+}
+
+void draw_cup(WINDOW *wnd, int x, int y) {
+	int w = 10, h = 6, xx, yy, i = 0;
+	chtype m[] = {
+5257580, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257579, 5257592, 1063200, 2106204, 2106223, 2106223, 2106223, 
+2106223, 2106159, 1063200, 5257592, 5257592, 1063200, 1063200, 2106204, 2106223, 2106223, 2106159, 1063200, 1063200, 5257592, 5257592, 1063200, 
+1063200, 1063200, 6301304, 6301304, 1063200, 1063200, 1063200, 5257592, 5257592, 1063200, 1063200, 6301297, 6301302, 6301302, 6301297, 1063200, 
+1063200, 5257592, 5257581, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257578	};
+
+	for (yy = 0; yy < h; yy ++)
+		for (xx = 0; xx < w; xx ++) {
+			if (m[i]) mvwaddch(wnd, yy + y, xx + x, m[i]);
+			i ++;
+		}
 }
