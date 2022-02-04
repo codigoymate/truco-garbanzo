@@ -64,30 +64,15 @@ char *card_short_name(Card *card) {
 }
 
 void card_draw(WINDOW *wnd, Card *card, int x, int y) {
-	//char *name = card_short_name(card);
+
 	int w = 10, h = 6, i, j; 
-
-	wattron(wnd, COLOR_PAIR(PAIR_CARD));
-
-	// Background
-	for (j = y; j < y + h; j ++)
-		for (i = x; i < x + w; i ++)
-			mvwaddch(wnd, j, i, ' ');
-
-	// Border
-	rectangle(wnd, x, y, w, h);
-
-	// Values
-	mvwprintw(wnd, y + 1, x + 1, "%d", card->value);
-
-	wattroff(wnd, COLOR_PAIR(PAIR_CARD));
 
 	switch (card->type) {
 	case ORO:
+		draw_coin(wnd, x, y);
 		wattron(wnd, COLOR_PAIR(PAIR_CARD_ORO) | A_ALTCHARSET);
 		mvwaddch(wnd, y + 2, x + 1, ACS_DIAMOND);
 		wattroff(wnd, COLOR_PAIR(PAIR_CARD_ORO) | A_ALTCHARSET);
-		draw_coin(wnd, x, y);
 		break;
 	case COPAS:
 		wattron(wnd, COLOR_PAIR(PAIR_CARD_COPAS));
@@ -106,7 +91,12 @@ void card_draw(WINDOW *wnd, Card *card, int x, int y) {
 		break;
 	}
 
-	//string_clear(name);
+	wattron(wnd, COLOR_PAIR(PAIR_CARD));
+
+	// Values
+	mvwprintw(wnd, y + 1, x + 1, "%d", card->value);
+
+	wattroff(wnd, COLOR_PAIR(PAIR_CARD));
 }
 
 void rectangle(WINDOW *wnd, int x, int y, int w, int h) {
@@ -121,14 +111,17 @@ void rectangle(WINDOW *wnd, int x, int y, int w, int h) {
 }
 
 void draw_coin(WINDOW *wnd, int x, int y) {
-	int c = ACS_CKBOARD;
+	int w = 10, h = 6, xx, yy, i = 0;
+	chtype m[] = {
+5257580, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257579, 5257592, 1063200, 1063200, 1055008, 4201080, 4201080, 
+1055008, 1063200, 1063200, 5257592, 5257592, 1063200, 4201073, 6688, 4201056, 4201056, 6688, 4201073, 1063200, 5257592, 5257592, 1063200, 
+4201073, 6688, 4201056, 4201056, 6688, 4201073, 1063200, 5257592, 5257592, 1063200, 1063200, 1055008, 4201080, 4201080, 1055008, 1063200, 
+1063200, 5257592, 5257581, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257585, 5257578	};
 
-	wattron(wnd, COLOR_PAIR(PAIR_CARD_ORO) | A_ALTCHARSET);
-
-	mvwprintw(wnd, y + 2, x + 2, "  %c%c%c", c, c, c);
-	mvwprintw(wnd, y + 3, x + 2, " %c%c%c%c%c", c, c, c, c, c);
-	mvwprintw(wnd, y + 4, x + 2, "  %c%c%c", c, c, c);
-
-	wattroff(wnd, COLOR_PAIR(PAIR_CARD_ORO) | A_ALTCHARSET);
+	for (yy = 0; yy < h; yy ++)
+		for (xx = 0; xx < w; xx ++) {
+			if (m[i]) mvwaddch(wnd, yy + y, xx + x, m[i]);
+			i ++;
+		}
 	
 }
