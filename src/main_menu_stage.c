@@ -2,6 +2,7 @@
 
 #include <tmenu.h>
 #include <ncurses.h>
+#include <colors.h>
 
 void one_oponent(Truco *truco);
 void two_oponents(Truco *truco);
@@ -25,9 +26,9 @@ void run_main_menu(Truco *truco) {
         wclear(menuw);
 
         /* Title */
-        attron(COLOR_PAIR(2));
+        attron(COLOR_PAIR(PAIR_TITLE));
         mvprintw(2, 5, "%s", "<< Truco Argentino >>");
-        attroff(COLOR_PAIR(2));
+        attroff(COLOR_PAIR(PAIR_TITLE));
 
 
         /* Menu */
