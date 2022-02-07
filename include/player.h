@@ -13,5 +13,7 @@ typedef struct Player {
 
 Player *player_new(const char *name);
 
+void play_card(Player *player, int index);
+
 #endif
 

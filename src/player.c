@@ -19,3 +19,10 @@ Player *player_new(const char *name) {
 
 	return player;
 }
+
+void play_card(Player *player, int index) {
+	if (player->hand[index]) {
+		player->played[index] = player->hand[index];
+		player->hand[index] = NULL;
+	}
+}

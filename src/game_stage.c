@@ -6,6 +6,7 @@
 #include <ia.h>
 #include <tmenu.h>
 #include <colors.h>
+#include <logger.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
 void draw_score(Truco *truco, WINDOW *wnd);
@@ -28,13 +29,17 @@ void run_game(Truco *truco) {
 	scorew = newwin(3, 15, 2, 80);
 	resultsw = newwin(3, 15, 10, 80);
 
+	log_init(truco);
+
 	menu_add_item(menu, "   Next   ", next);
 	menu_add_item(menu, "   Back   ", back);
+
+	log_print(truco, "Partida iniciada");
 
 	next_round(truco);
 
     while (!truco->exit_stage) {
-		clear();
+		/*clear();*/
 		wclear(gamew);
 		wclear(scorew);
 
@@ -53,10 +58,10 @@ void run_game(Truco *truco) {
 
 		refresh();
 		wrefresh(gamew);
-
 		if (!truco->round_finished)
 			wrefresh(menuw);
 		else wrefresh(resultsw);
+		wrefresh(truco->logw);
 
 		wrefresh(scorew);
 
@@ -70,6 +75,7 @@ void run_game(Truco *truco) {
 		}
 	}
 
+	log_clean(truco);
 	delwin(gamew);
 	delwin(menuw);
 	delwin(scorew);

@@ -4,6 +4,7 @@
 #include <string_utils.h>
 #include <deck.h>
 #include <points.h>
+#include <logger.h>
 
 int get_hand_winner(Truco *truco);
 
@@ -275,6 +276,8 @@ void next_round(Truco *truco) {
 			2 : Tie
 		*/
 	}
+
+	log_print(truco, "Mezclando y repartiendo ...");
 
 	/* Merge deck */
 	deck_merge(truco->deck);
