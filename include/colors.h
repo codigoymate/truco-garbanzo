@@ -11,6 +11,9 @@
 #define PAIR_CARD_ESPADAS	69
 #define PAIR_CARD_BASTOS	70
 
+#define PAIR_PLAYER0        71
+#define PAIR_PLAYER1        72
+
 void init_colors(void);
 
 #endif

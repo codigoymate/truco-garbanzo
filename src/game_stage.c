@@ -5,6 +5,7 @@
 #include <deck.h>
 #include <ia.h>
 #include <tmenu.h>
+#include <colors.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
 void draw_score(Truco *truco, WINDOW *wnd);
@@ -83,11 +84,18 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 	for (player = truco->first_player; player != NULL; player = player->next) {
 		if (truco->current_player == i) 
 			wattron(wnd, A_REVERSE);
+
+		if (player->id % 2) wattron(wnd, COLOR_PAIR(PAIR_PLAYER1));
+		else wattron(wnd, COLOR_PAIR(PAIR_PLAYER0));
+
 		mvwprintw(wnd, player->ty, player->tx, "%s", player->name);
 
 		/* Markup the start player */
 		if (i == truco->start_player)
 			wprintw(wnd, "%s", " (*)");
+
+		if (player->id % 2) wattroff(wnd, COLOR_PAIR(PAIR_PLAYER1));
+		else wattroff(wnd, COLOR_PAIR(PAIR_PLAYER0));
 
 		if (truco->current_player == i)
 			wattroff(wnd, A_REVERSE);
