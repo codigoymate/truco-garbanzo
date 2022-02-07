@@ -78,7 +78,6 @@ void run_game(Truco *truco) {
 
 void draw_game(Truco *truco, WINDOW *wnd) {
 	Player *player;
-	char *name;
 	int i = 0, c;
 
 	for (player = truco->first_player; player != NULL; player = player->next) {
@@ -90,15 +89,14 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 		if (i == truco->start_player)
 			wprintw(wnd, "%s", " (*)");
 
-		for (c = 0; c < 3; c ++) {
-			if (!player->played[c]) continue;
-			name = card_short_name(player->played[c]);
-			mvwprintw(wnd, player->ty + 1, player->tx + c * 4, "%s", name);
-			string_clear(name);
-		}
-
 		if (truco->current_player == i)
 			wattroff(wnd, A_REVERSE);
+
+		for (c = 0; c < 3; c ++) {
+			if (!player->played[c]) continue;
+			card_draw_small(wnd, player->played[c], player->tx + c * 4, player->ty + 1);
+		}
+
 		i ++;
 	}
 }

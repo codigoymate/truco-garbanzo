@@ -10,6 +10,8 @@ void draw_cup(WINDOW *wnd, int x, int y);
 void draw_spade(WINDOW * wnd, int x, int y);
 void draw_stick(WINDOW * wnd, int x, int y);
 
+void rectangle(WINDOW *wnd, int x, int y, int w, int h);
+
 Card *card_new(int value, int type, int pow, int envido) {
 	Card *card = (Card *) malloc(sizeof(Card));
 	card->value = value;
@@ -103,7 +105,40 @@ void card_draw(WINDOW *wnd, Card *card, int x, int y) {
 	wattroff(wnd, COLOR_PAIR(PAIR_CARD));
 }
 
+void card_draw_small(WINDOW *wnd, Card *card, int x, int y) {
+	wattron(wnd, COLOR_PAIR(PAIR_CARD));
+	rectangle(wnd, x, y, 5, 3);
+	mvwprintw(wnd, y + 1, x + 1, "%d", card->value);
+	wattroff(wnd, COLOR_PAIR(PAIR_CARD));
+
+	switch (card->type) {
+	case ORO:
+		mvwaddch(wnd, y + 2, x + 1, 'O' | COLOR_PAIR(PAIR_CARD_ORO));
+		mvwaddch(wnd, y + 2, x + 3, ACS_DIAMOND | COLOR_PAIR(PAIR_CARD_ORO) | A_ALTCHARSET);
+		break;
+	case COPAS:
+		mvwaddch(wnd, y + 2, x + 1, 'C' | COLOR_PAIR(PAIR_CARD_COPAS) | A_DIM);
+		mvwaddch(wnd, y + 2, x + 3, 'Y' | COLOR_PAIR(PAIR_CARD_COPAS) | A_DIM);
+		break;
+	case ESPADAS:
+		mvwaddch(wnd, y + 2, x + 1, 'E' | COLOR_PAIR(PAIR_CARD_ESPADAS));
+		mvwaddch(wnd, y + 2, x + 3, ACS_PLUS | COLOR_PAIR(PAIR_CARD_ESPADAS) | A_ALTCHARSET);
+		break;
+	case BASTOS:
+		mvwaddch(wnd, y + 2, x + 1, 'B' | COLOR_PAIR(PAIR_CARD_BASTOS));
+		mvwaddch(wnd, y + 2, x + 3, '/' | COLOR_PAIR(PAIR_CARD_BASTOS) | A_BOLD);
+		break;
+	}
+}
+
 void rectangle(WINDOW *wnd, int x, int y, int w, int h) {
+
+	int xx, yy;
+
+	for (yy = y; yy < y + h; yy ++)
+		for (xx = x; xx < x + w; xx ++)
+			mvwaddch(wnd, yy, xx, ' ');
+
 	mvwhline(wnd, y, x, 0, w);
 	mvwhline(wnd, y + h, x, 0, w);
 	mvwvline(wnd, y, x, 0, h);

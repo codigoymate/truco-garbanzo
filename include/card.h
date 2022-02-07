@@ -17,5 +17,6 @@ char *card_long_name(Card *card);
 char *card_short_name(Card *card);
 
 void card_draw(WINDOW *wnd, Card *card, int x, int y);
+void card_draw_small(WINDOW *wnd, Card *card, int x, int y);
 
 #endif
