@@ -26,15 +26,16 @@ char *card_long_name(Card *card) {
 	char *name = NULL;
 
 	switch (card->value) {
-	case 1: name = string_set(name, "ancho"); break;
-	case 10: name = string_set(name, "sota"); break;
-	case 11: name = string_set(name, "caballo"); break;
-	case 12: name = string_set(name, "rey"); break;
+	case 1: name = string_set(name, "el ancho"); break;
+	case 10: name = string_set(name, "la sota"); break;
+	case 11: name = string_set(name, "el caballo"); break;
+	case 12: name = string_set(name, "el rey"); break;
 	default: {
 		char val[2];
 		val[0] = card->value + 48;
 		val[1] = '\0';
-		name = string_set(name, val);
+		name = string_set(name, "el ");
+		name = string_cat(name, val);
 		}
 	}
 
