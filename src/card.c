@@ -30,13 +30,9 @@ char *card_long_name(Card *card) {
 	case 10: name = string_set(name, "la sota"); break;
 	case 11: name = string_set(name, "el caballo"); break;
 	case 12: name = string_set(name, "el rey"); break;
-	default: {
-		char val[2];
-		val[0] = card->value + 48;
-		val[1] = '\0';
+	default:
 		name = string_set(name, "el ");
-		name = string_cat(name, val);
-		}
+		name = string_cat_number(name, card->value);
 	}
 
 	switch (card->type) {
