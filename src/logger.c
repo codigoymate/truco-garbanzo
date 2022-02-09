@@ -2,7 +2,7 @@
 #include <ncurses.h>
 
 void log_init(Truco *truco) {
-    truco->logw = newwin(5, 80, 20, 60);
+    truco->logw = newwin(7, 80, 20, 60);
     scrollok(truco->logw, TRUE);
 }
 void log_clean(Truco *truco) {
