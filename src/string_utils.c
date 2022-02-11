@@ -12,7 +12,7 @@ char *string_set(char *str, const char *l) {
 	return str;
 }
 
-void string_clear(char *str) {
+void string_clean(char *str) {
 	free(str);
 }
 

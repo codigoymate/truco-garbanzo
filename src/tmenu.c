@@ -5,7 +5,7 @@
 #include <colors.h>
 
 void item_clean(MenuItem *item) {
-	string_clear(item->name);
+	string_clean(item->name);
 	free(item);
 }
 

@@ -39,7 +39,6 @@ void run_game(Truco *truco) {
 	next_round(truco);
 
     while (!truco->exit_stage) {
-		/*clear();*/
 		wclear(gamew);
 		wclear(scorew);
 

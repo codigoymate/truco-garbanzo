@@ -21,5 +21,5 @@ void give_points(Truco *truco, int points, int team) {
     if (points > 1) msg = string_cat(msg, "puntos.");
     else msg = string_cat(msg, " punto.");
     log_print(truco, msg);
-    string_clear(msg);
+    string_clean(msg);
 }

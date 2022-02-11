@@ -23,8 +23,8 @@ void ia_play(Truco *truco) {
 			msg = string_cat(msg, " juega ");
 			msg = string_cat(msg, cn);
 			log_print(truco, msg);
-			string_clear(cn);
-			string_clear(msg);
+			string_clean(cn);
+			string_clean(msg);
 			return;
 		}
 	}

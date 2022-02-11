@@ -63,7 +63,7 @@ void clean_players(Truco *truco) {
 
 	while (player) {
 		next = player->next;
-		string_clear(player->name);
+		string_clean(player->name);
 		free(player);
 		player = next;
 	}
