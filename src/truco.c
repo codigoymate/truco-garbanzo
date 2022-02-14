@@ -189,6 +189,7 @@ void next_player(Truco *truco) {
 
 		switch (truco->hand) {
 		case 0:
+			/* Any team wins the hand */
 			if (winner != -1) {
 				truco->winners[0] = winner % 2;
 				truco->current_player = winner;
@@ -197,7 +198,8 @@ void next_player(Truco *truco) {
 				if (truco->winners[0] == 0) log_print(truco, "Equipo 1 gana primera.");
 				else log_print(truco, "Equipo 2 gana primera.");
 			} else {
-				truco->winners[0] = 2; /* Tie */
+				/* Parda */
+				truco->winners[0] = 2;
 				increment_current_player(truco);
 
 				/* Log */
@@ -205,7 +207,7 @@ void next_player(Truco *truco) {
 			}
 			break;
 		case 1:
-			/* Tie and any team won the hand 0 ... */
+			/* Parda and any team won the hand 0 ... */
 			if (winner == -1 && truco->winners[0] != 2) {
 				/* Give "1" point to winner team */
 				give_points(truco, 1, truco->winners[0]);
@@ -217,9 +219,9 @@ void next_player(Truco *truco) {
 
 				truco->round_finished = 1;
 				return ;
-			/* Tie and Tie hand 0 ...*/
+			/* Parda and Parda hand 0 ...*/
 			} else if (winner == -1 && truco->winners[0] == 2) {
-				truco->winners[1] = 2; /* Tie */
+				truco->winners[1] = 2; /* Parda */
 				increment_current_player(truco);
 				/* Log */
 				log_print(truco, "Parda en la segunda.");
@@ -249,7 +251,7 @@ void next_player(Truco *truco) {
 			}
 			break;
 		case 2:
-			/* Tie */
+			/* Parda */
 			if (winner == -1) {
 				if (truco->winners[0] != 2) {
 					/* Wins who won first hand */
@@ -259,12 +261,13 @@ void next_player(Truco *truco) {
 					log_print(truco, "Parda en la tercera.");
 					if (truco->winners[0] == 0) log_print(truco, "Equipo 1 gana ronda por primera.");
 					else log_print(truco, "Equipo 2 gana ronda por primera.");
-				/* Tie all hands */
+				/* Parda all hands */
 				} else {
 					/* Wins "start_player" */
 					give_points(truco, 1, truco->start_player % 2);
 
 					/* Log */
+					log_print(truco, "¡ Parda en las tres manos !");
 					if (truco->start_player % 2 == 0) log_print(truco, "Equipo 1 gana ronda por ser mano.");
 					else log_print(truco, "Equipo 2 gana ronda por ser mano.");
 				}
@@ -273,9 +276,8 @@ void next_player(Truco *truco) {
 				/* Team winner third hand */
 				give_points(truco, 1, winner % 2);
 
-				log_print(truco, "¡ Parda en las tres manos !");
-				if (truco->start_player % 2 == 0) log_print(truco, "Equipo 1 gana ronda por ser mano.");
-				else log_print(truco, "Equipo 2 gana ronda por ser mano.");
+				if (winner % 2 == 0) log_print(truco, "Equipo 1 gana ronda.");
+				else log_print(truco, "Equipo 2 gana ronda.");
 			}
 
 			truco->round_finished = 1;
