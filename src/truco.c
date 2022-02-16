@@ -349,7 +349,8 @@ int get_hand_winner(Truco *truco) {
 
 	/* Parda */
 	if (list[0]->played[truco->hand]->power == list[1]->played[truco->hand]->power)
-		return -1;
+		if (list[0]->id % 2 != list[1]->id % 2)
+			return -1;
 
 	return list[0]->id;
 }
