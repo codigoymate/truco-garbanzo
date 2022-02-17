@@ -21,12 +21,13 @@ MenuItem *get_selected_item(Menu *menu) {
 	return NULL;
 }
 
-Menu *menu_new(Truco *truco, WINDOW *wnd, int x, int y) {
+Menu *menu_new(Truco *truco, int x, int y, int w, int h) {
 	Menu *menu = (Menu *) malloc(sizeof(Menu));
 	menu->first = NULL;
 	menu->x = x; menu->y = y;
+	menu->w = w; menu->h = h;
 	menu->cursor = menu->count = 0;
-	menu->wnd = wnd;
+	menu->wnd = newwin(h, w, y, x);
 	menu->truco = truco;
 
 	return menu;
@@ -62,19 +63,21 @@ void menu_clean(Menu *menu) {
 		}
 
 	}
-
+	delwin(menu->wnd);
 	free(menu);
 }
 
 void menu_print(Menu *menu) {
-	int yy = menu->y, index = 0;
+	int yy = 1, index = 0;
 	MenuItem *node = menu->first;
+
+	box(menu->wnd, 0, 0);
 
 	wattron(menu->wnd, COLOR_PAIR(PAIR_MENU));
 
 	for (node = menu->first; node != NULL; node = node->next) {
 		if (menu->cursor == index) wattron(menu->wnd, A_REVERSE);
-        mvwprintw(menu->wnd, yy, menu->x, "%s", node->name);
+        mvwprintw(menu->wnd, yy, 1, "%s", node->name);
 		if (menu->cursor == index) wattroff(menu->wnd, A_REVERSE);
 		yy ++; index ++;
     }

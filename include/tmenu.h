@@ -14,12 +14,12 @@ typedef struct MenuItem {
 
 typedef struct Menu {
 	MenuItem *first, *last;
-	int x, y, cursor, count;
+	int x, y, w, h, cursor, count;
 	WINDOW *wnd;
 	Truco *truco;
 } Menu;
 
-Menu *menu_new(Truco *truco, WINDOW *wnd, int x, int y);
+Menu *menu_new(Truco *truco, int x, int y, int w, int h);
 void menu_add_item(Menu *menu, const char *name, FUNC_PTR action);
 void menu_clean(Menu *menu);
 void menu_print(Menu *menu);

@@ -20,10 +20,9 @@ void run_game(Truco *truco) {
 	int key;
 
 	Menu *menu;
-	WINDOW *menuw, *gamew, *scorew, *resultsw;
+	WINDOW *gamew, *scorew, *resultsw;
 
-	menuw = newwin(4, 12, 3, 60);
-	menu = menu_new(truco, menuw, 1, 1);
+	menu = menu_new(truco, 60, 3, 12, 4);
 
 	gamew = newwin(25, 55, 1, 2);
 	scorew = newwin(3, 15, 2, 80);
@@ -49,7 +48,6 @@ void run_game(Truco *truco) {
 		draw_score(truco, scorew);
 
 		if (!truco->round_finished) {
-			box(menuw, 0, 0);
 			menu_print(menu);
 		} else {
 			draw_round_results(truco, resultsw);
@@ -58,7 +56,7 @@ void run_game(Truco *truco) {
 		refresh();
 		wrefresh(gamew);
 		if (!truco->round_finished)
-			wrefresh(menuw);
+			wrefresh(menu->wnd);
 		else wrefresh(resultsw);
 		wrefresh(truco->logw);
 
@@ -76,7 +74,6 @@ void run_game(Truco *truco) {
 
 	log_clean(truco);
 	delwin(gamew);
-	delwin(menuw);
 	delwin(scorew);
 	delwin(resultsw);
 	menu_clean(menu);

@@ -11,10 +11,8 @@ void quit(Truco *truco);
 
 void run_main_menu(Truco *truco) {
     Menu *menu;
-    WINDOW *menuw;
 
-    menuw = newwin(6, 22, 5, 20);
-    menu = menu_new(truco, menuw, 1, 1);
+    menu = menu_new(truco, 20, 5, 22, 6);
 
     menu_add_item(menu, "    Un Oponente     ", one_oponent);
     menu_add_item(menu, "   Dos Oponentes    ", two_oponents);
@@ -23,26 +21,23 @@ void run_main_menu(Truco *truco) {
 
     while (!truco->exit_stage) {
         clear();
-        wclear(menuw);
+        wclear(menu->wnd);
 
         /* Title */
         attron(COLOR_PAIR(PAIR_TITLE));
         mvprintw(2, 5, "%s", "<< Truco Argentino >>");
         attroff(COLOR_PAIR(PAIR_TITLE));
 
-
-        /* Menu */
-        box(menuw, 0, 0);
+        /* Menu */ 
         menu_print(menu);
 
         refresh();
-        wrefresh(menuw);
+        wrefresh(menu->wnd);
 
         menu_key_event(menu, getch());
     }
 
     menu_clean(menu);
-    delwin(menuw);
 }
 
 void one_oponent(Truco *truco) {
