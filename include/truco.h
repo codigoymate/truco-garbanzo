@@ -31,6 +31,13 @@ Player *get_player(Truco *truco, int index);
 
 void start_game(Truco *truco);
 
+/**
+ * @brief Layout players depending terminal dimension
+ * 
+ * @param truco Truco instance.
+ */
+void layout_players(Truco *truco);
+
 void increment_current_player(Truco *truco);
 
 /**

@@ -107,48 +107,7 @@ void start_game(Truco *truco) {
 	/* Select the start player */
 	truco->start_player = rand() % truco->player_count;
 
-	switch (truco->player_count) {
-	case 2:
-		get_player(truco, 0)->tx = 20;
-		get_player(truco, 0)->ty = 20;
-		get_player(truco, 1)->tx = 20;
-		get_player(truco, 1)->ty = 0;
-		break;
-	case 4:
-		get_player(truco, 0)->tx = 20;
-		get_player(truco, 0)->ty = 20;
-		get_player(truco, 1)->tx = 0;
-		get_player(truco, 1)->ty = 10;
-		get_player(truco, 2)->tx = 20;
-		get_player(truco, 2)->ty = 0;
-		get_player(truco, 3)->tx = 40;
-		get_player(truco, 3)->ty = 10;
-		break;
-
-	case 6:
-		get_player(truco, 0)->tx = 20;
-		get_player(truco, 0)->ty = 20;
-
-		get_player(truco, 1)->tx = 0;
-		get_player(truco, 1)->ty = 15;
-
-		get_player(truco, 2)->tx = 0;
-		get_player(truco, 2)->ty = 5;
-
-		get_player(truco, 3)->tx = 20;
-		get_player(truco, 3)->ty = 0;
-
-		get_player(truco, 4)->tx = 40;
-		get_player(truco, 4)->ty = 5;
-
-		get_player(truco, 5)->tx = 40;
-		get_player(truco, 5)->ty = 15;
-
-		break;
-	
-	default:
-		break;
-	}
+	layout_players(truco);
 
 }
 
@@ -353,4 +312,61 @@ int get_hand_winner(Truco *truco) {
 			return -1;
 
 	return list[0]->id;
+}
+
+void layout_players(Truco *truco) {
+
+	int w, h;
+	int pa = 7; /* player area size */
+
+	getmaxyx(stdscr, h, w);
+
+	h = h - pa;
+
+	switch (truco->player_count) {
+	case 2:
+		get_player(truco, 0)->tx = 20;
+		get_player(truco, 0)->ty = h - 3;
+
+		get_player(truco, 1)->tx = 20;
+		get_player(truco, 1)->ty = 4;
+		break;
+	case 4:
+		get_player(truco, 0)->tx = 20;
+		get_player(truco, 0)->ty = h - 2;
+
+		get_player(truco, 1)->tx = 5;
+		get_player(truco, 1)->ty = h / 2;
+
+		get_player(truco, 2)->tx = 20;
+		get_player(truco, 2)->ty = 2;
+
+		get_player(truco, 3)->tx = 35;
+		get_player(truco, 3)->ty = h / 2;
+		break;
+
+	case 6:
+		get_player(truco, 0)->tx = 20;
+		get_player(truco, 0)->ty = h;
+
+		get_player(truco, 1)->tx = 5;
+		get_player(truco, 1)->ty = 3 * h / 4;
+
+		get_player(truco, 2)->tx = 5;
+		get_player(truco, 2)->ty = h / 4;
+
+		get_player(truco, 3)->tx = 20;
+		get_player(truco, 3)->ty = 1;
+
+		get_player(truco, 4)->tx = 35;
+		get_player(truco, 4)->ty = h / 4;
+
+		get_player(truco, 5)->tx = 35;
+		get_player(truco, 5)->ty = 3 * h / 4;
+
+		break;
+	
+	default:
+		break;
+	}
 }

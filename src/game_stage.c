@@ -9,7 +9,7 @@
 #include <logger.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
-void draw_score(Truco *truco, WINDOW *wnd);
+/*void draw_score(Truco *truco, WINDOW *wnd);*/
 void draw_round_results(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
@@ -19,69 +19,69 @@ void run_game(Truco *truco) {
 
 	int key;
 
-	Menu *menu;
-	WINDOW *gamew, *scorew, *resultsw;
+	/*Menu *menu;*/
+	WINDOW *resultsw;
 
-	menu = menu_new(truco, 60, 3, 12, 4);
+/*	menu = menu_new(truco, 60, 3, 12, 4);*/
 
-	gamew = newwin(25, 55, 1, 2);
-	scorew = newwin(3, 15, 2, 80);
+	/*scorew = newwin(3, 15, 2, 80);*/
 	resultsw = newwin(3, 15, 10, 80);
 
 	log_init(truco);
 
-	menu_add_item(menu, "   Next   ", next);
-	menu_add_item(menu, "   Back   ", back);
+	/*menu_add_item(menu, "   Next   ", next);
+	menu_add_item(menu, "   Back   ", back);*/
 
 	log_print(truco, "Partida iniciada");
 
 	next_round(truco);
 
-    while (!truco->exit_stage) {
-		wclear(gamew);
-		wclear(scorew);
+	nodelay(stdscr, TRUE);
 
+    while (!truco->exit_stage) {
+
+		clear();
+		/*wclear(scorew);*/
 		if (truco->round_finished) wclear(resultsw);
 
-		draw_game(truco, gamew);
-
-		draw_score(truco, scorew);
-
-		if (!truco->round_finished) {
-			menu_print(menu);
-		} else {
-			draw_round_results(truco, resultsw);
-		}
+		/* Draw */
+		draw_game(truco, stdscr);
+		/*draw_score(truco, scorew);*/
+		if (truco->round_finished) draw_round_results(truco, resultsw);
 
 		refresh();
-		wrefresh(gamew);
-		if (!truco->round_finished)
-			wrefresh(menu->wnd);
-		else wrefresh(resultsw);
+		if (truco->round_finished) wrefresh(resultsw);
 		wrefresh(truco->logw);
-
-		wrefresh(scorew);
+		/*wrefresh(scorew);*/
 
 		key = getch();
 
-		if (!truco->round_finished)
-			menu_key_event(menu, key);
-		else {
+		if (key == KEY_RESIZE) {
+			layout_players(truco);
+		}
+
+		/* Update */
+		if (!truco->round_finished) {
+			ia_play(truco);
+			next_player(truco);
+		} else {
 			truco->round_finished = 0;
 			next_round(truco);
 		}
 	}
 
+	nodelay(stdscr, FALSE);
+
 	log_clean(truco);
-	delwin(gamew);
-	delwin(scorew);
+	/*delwin(scorew);*/
 	delwin(resultsw);
-	menu_clean(menu);
 }
 
 void draw_game(Truco *truco, WINDOW *wnd) {
 	Player *player;
-	int i = 0, c;
+	int i = 0, c, w, h;
+
+	getmaxyx(stdscr, h, w);
 
 	for (player = truco->first_player; player != NULL; player = player->next) {
 		if (truco->current_player == i) 
@@ -90,6 +90,7 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 		if (player->id % 2) wattron(wnd, COLOR_PAIR(PAIR_PLAYER1));
 		else wattron(wnd, COLOR_PAIR(PAIR_PLAYER0));
 
+		/* Draw players */
 		mvwprintw(wnd, player->ty, player->tx, "%s", player->name);
 
 		/* Markup the start player */
@@ -102,6 +103,7 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 		if (truco->current_player == i)
 			wattroff(wnd, A_REVERSE);
 
+		/* Draw cards */
 		for (c = 0; c < 3; c ++) {
 			if (!player->played[c]) continue;
 			card_draw_small(wnd, player->played[c], player->tx + c * 4, player->ty + 1);
@@ -109,9 +111,20 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 
 		i ++;
 	}
+
+	/* Score */
+	mvwprintw(wnd, 1, 60, "Nosotros: %d", get_player(truco, 0)->score);
+	mvwprintw(wnd, 2, 60, "Ellos: %d", get_player(truco, 1)->score);
+	
+	/* Draw player 0 card */
+	for (i = 0; i < 3; i ++) {
+		if (truco->first_player->hand[i]) {
+			card_draw(wnd, truco->first_player->hand[i], w - 33 + 10 * i, h - 8);
+		}
+	}
 }
 
-void next(Truco *truco) {
+/*void next(Truco *truco) {
 	ia_play(truco);
 	next_player(truco);
 }
@@ -119,12 +132,11 @@ void next(Truco *truco) {
 void back(Truco *truco) {
 	truco->stage = MAIN_MENU_STAGE;
 	truco->exit_stage = 1;
-}
+}*/
 
-void draw_score(Truco *truco, WINDOW *wnd) {
-	wprintw(wnd, "Nosotros: %d\n", get_player(truco, 0)->score);
-	wprintw(wnd, "Ellos: %d\n", get_player(truco, 1)->score);
-}
+/*void draw_score(Truco *truco, WINDOW *wnd) {
+	
+}*/
 
 void draw_round_results(Truco *truco, WINDOW *wnd) {
 	wprintw(wnd, "Round finished.");

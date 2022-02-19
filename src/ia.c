@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <logger.h>
 #include <string_utils.h>
+#include <unistd.h>
 
 void ia_play(Truco *truco) {
 	int i;
@@ -12,6 +13,8 @@ void ia_play(Truco *truco) {
 
 	/* TODO: improve IA
 	*/
+
+	sleep(1);
 
 	for (i = 0; i < 3; i ++) {
 		if (player->hand[i]) {
