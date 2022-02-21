@@ -318,6 +318,7 @@ void layout_players(Truco *truco) {
 
 	int w, h;
 	int pa = 7; /* player area size */
+	(void) w;
 
 	getmaxyx(stdscr, h, w);
 

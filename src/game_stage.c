@@ -7,6 +7,7 @@
 #include <tmenu.h>
 #include <colors.h>
 #include <logger.h>
+#include <human.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
 /*void draw_score(Truco *truco, WINDOW *wnd);*/
@@ -62,11 +63,20 @@ void run_game(Truco *truco) {
 
 		/* Update */
 		if (!truco->round_finished) {
-			ia_play(truco);
-			next_player(truco);
+			if (truco->current_player == 0)
+				human_play(truco, key);
+			else {
+				ia_play(truco);
+				next_player(truco);
+			}
 		} else {
 			truco->round_finished = 0;
 			next_round(truco);
+		}
+
+		/* Human player event */
+		if (truco->current_player == 0) {
+			human_play(truco, key);
 		}
 	}
 

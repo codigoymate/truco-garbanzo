@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <logger.h>
 #include <string_utils.h>
-#include <unistd.h>
+#include <timing.h>
 
 void ia_play(Truco *truco) {
 	int i;
@@ -14,7 +14,7 @@ void ia_play(Truco *truco) {
 	/* TODO: improve IA
 	*/
 
-	sleep(1);
+	delay(1000);
 
 	for (i = 0; i < 3; i ++) {
 		if (player->hand[i]) {
