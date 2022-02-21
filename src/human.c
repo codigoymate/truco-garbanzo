@@ -12,6 +12,11 @@ void human_play(Truco *truco, int key) {
             next_player(truco);
         break;
     
+    case 27:
+        truco->exit_stage = 1;
+        truco->stage = MAIN_MENU_STAGE;
+        break;
+
     default:
         break;
     }
