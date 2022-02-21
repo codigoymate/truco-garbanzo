@@ -10,8 +10,6 @@
 #include <human.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
-/*void draw_score(Truco *truco, WINDOW *wnd);*/
-void draw_round_results(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
 void back(Truco *truco);
@@ -20,18 +18,7 @@ void run_game(Truco *truco) {
 
 	int key;
 
-	/*Menu *menu;*/
-	WINDOW *resultsw;
-
-/*	menu = menu_new(truco, 60, 3, 12, 4);*/
-
-	/*scorew = newwin(3, 15, 2, 80);*/
-	resultsw = newwin(3, 15, 10, 80);
-
 	log_init(truco);
-
-	/*menu_add_item(menu, "   Next   ", next);
-	menu_add_item(menu, "   Back   ", back);*/
 
 	log_print(truco, "Partida iniciada");
 
@@ -42,18 +29,12 @@ void run_game(Truco *truco) {
     while (!truco->exit_stage) {
 
 		clear();
-		/*wclear(scorew);*/
-		if (truco->round_finished) wclear(resultsw);
 
 		/* Draw */
 		draw_game(truco, stdscr);
-		/*draw_score(truco, scorew);*/
-		if (truco->round_finished) draw_round_results(truco, resultsw);
 
 		refresh();
-		if (truco->round_finished) wrefresh(resultsw);
 		wrefresh(truco->logw);
-		/*wrefresh(scorew);*/
 
 		key = getch();
 
@@ -83,8 +64,6 @@ void run_game(Truco *truco) {
 	nodelay(stdscr, FALSE);
 
 	log_clean(truco);
-	/*delwin(scorew);*/
-	delwin(resultsw);
 }
 
 void draw_game(Truco *truco, WINDOW *wnd) {
@@ -132,22 +111,4 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 			card_draw(wnd, truco->first_player->hand[i], w - 33 + 10 * i, h - 8);
 		}
 	}
-}
-
-/*void next(Truco *truco) {
-	ia_play(truco);
-	next_player(truco);
-}
-
-void back(Truco *truco) {
-	truco->stage = MAIN_MENU_STAGE;
-	truco->exit_stage = 1;
-}*/
-
-/*void draw_score(Truco *truco, WINDOW *wnd) {
-	
-}*/
-
-void draw_round_results(Truco *truco, WINDOW *wnd) {
-	wprintw(wnd, "Round finished.");
 }
