@@ -13,7 +13,15 @@ typedef struct Player {
 
 Player *player_new(const char *name);
 
-void play_card(Player *player, int index);
+/**
+ * @brief The player plays the index card.
+ * Move the card from index hand to free space on played array
+ * 
+ * @param player The player instance.
+ * @param index The hand index.
+ * @return int 1 if and only if the operation was successfully.
+ */
+int play_card(Player *player, int index);
 
 #endif
 

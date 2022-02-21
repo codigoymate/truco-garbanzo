@@ -20,9 +20,16 @@ Player *player_new(const char *name) {
 	return player;
 }
 
-void play_card(Player *player, int index) {
+int play_card(Player *player, int index) {
+	int fs = 0;
 	if (player->hand[index]) {
-		player->played[index] = player->hand[index];
+
+		/* Find a free space on played cards */
+		while (player->played[fs] && fs < 3) fs ++;
+
+		/* Move the indexed card to free space */
+		player->played[fs] = player->hand[index];
 		player->hand[index] = NULL;
-	}
+		return 1; /* Success */
+	} else return 0;
 }
