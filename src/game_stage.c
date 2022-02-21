@@ -108,6 +108,7 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 	/* Draw player 0 card */
 	for (i = 0; i < 3; i ++) {
 		if (truco->first_player->hand[i]) {
+			mvwprintw(wnd, h - 9, w - 33 + 10 * i, "[%i]", i + 1);
 			card_draw(wnd, truco->first_player->hand[i], w - 33 + 10 * i, h - 8);
 		}
 	}
