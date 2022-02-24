@@ -185,6 +185,17 @@ void next_player(Truco *truco) {
 				/* Log */
 				log_print(truco, "Parda en la segunda.");
 
+			/* Parda 0 and any team win the hand 1 */
+			} else if (winner != -1 && truco->winners[0] == 2) {
+				give_points(truco, 1, winner % 2);
+
+				/* Log */
+				if (winner % 2 == 0) log_print(truco, "Equipo 1 gana ronda.");
+				else log_print(truco, "Equipo 2 gana ronda.");
+				truco->round_finished = 1;
+
+				return ;
+
 			/* Any team wins the hand 0 and any the hand 1 ...*/
 			} else {
 				/* Any team wins both hads (0 and 1) ... */
