@@ -154,15 +154,15 @@ void next_player(Truco *truco) {
 				truco->current_player = winner;
 
 				/* Log */
-				if (truco->winners[0] == 0) log_print(truco, "Equipo 1 gana primera.");
-				else log_print(truco, "Equipo 2 gana primera.");
+				if (truco->winners[0] == 0) log_print("Equipo 1 gana primera.");
+				else log_print("Equipo 2 gana primera.");
 			} else {
 				/* Parda */
 				truco->winners[0] = 2;
 				increment_current_player(truco);
 
 				/* Log */
-				log_print(truco, "Parda en la primera.");
+				log_print("Parda en la primera.");
 			}
 			break;
 		case 1:
@@ -172,9 +172,9 @@ void next_player(Truco *truco) {
 				give_points(truco, 1, truco->winners[0]);
 
 				/* Log */
-				log_print(truco, "Parda en la segunda.");
-				if (truco->winners[0] == 0) log_print(truco, "Equipo 1 gana ronda por primera.");
-				else log_print(truco, "Equipo 2 gana ronda por primera.");
+				log_print("Parda en la segunda.");
+				if (truco->winners[0] == 0) log_print("Equipo 1 gana ronda por primera.");
+				else log_print("Equipo 2 gana ronda por primera.");
 
 				truco->round_finished = 1;
 				return ;
@@ -183,15 +183,15 @@ void next_player(Truco *truco) {
 				truco->winners[1] = 2; /* Parda */
 				increment_current_player(truco);
 				/* Log */
-				log_print(truco, "Parda en la segunda.");
+				log_print("Parda en la segunda.");
 
 			/* Parda 0 and any team win the hand 1 */
 			} else if (winner != -1 && truco->winners[0] == 2) {
 				give_points(truco, 1, winner % 2);
 
 				/* Log */
-				if (winner % 2 == 0) log_print(truco, "Equipo 1 gana ronda.");
-				else log_print(truco, "Equipo 2 gana ronda.");
+				if (winner % 2 == 0) log_print("Equipo 1 gana ronda.");
+				else log_print("Equipo 2 gana ronda.");
 				truco->round_finished = 1;
 
 				return ;
@@ -204,8 +204,8 @@ void next_player(Truco *truco) {
 					give_points(truco, 1, truco->winners[0]);
 					
 					/* Log */
-					if (truco->winners[0] == 0) log_print(truco, "Equipo 1 gana ronda.");
-					else log_print(truco, "Equipo 2 gana ronda.");
+					if (truco->winners[0] == 0) log_print("Equipo 1 gana ronda.");
+					else log_print("Equipo 2 gana ronda.");
 
 					truco->round_finished = 1;
 					return;
@@ -215,8 +215,8 @@ void next_player(Truco *truco) {
 					truco->current_player = winner;
 
 					/* Log */
-					if (truco->winners[1] == 0) log_print(truco, "Equipo 1 gana segunda.");
-					else log_print(truco, "Equipo 2 gana segunda.");
+					if (truco->winners[1] == 0) log_print("Equipo 1 gana segunda.");
+					else log_print("Equipo 2 gana segunda.");
 				}
 			}
 			break;
@@ -228,26 +228,26 @@ void next_player(Truco *truco) {
 					give_points(truco, 1, truco->winners[0]);
 
 					/* Log */
-					log_print(truco, "Parda en la tercera.");
-					if (truco->winners[0] == 0) log_print(truco, "Equipo 1 gana ronda por primera.");
-					else log_print(truco, "Equipo 2 gana ronda por primera.");
+					log_print("Parda en la tercera.");
+					if (truco->winners[0] == 0) log_print("Equipo 1 gana ronda por primera.");
+					else log_print("Equipo 2 gana ronda por primera.");
 				/* Parda all hands */
 				} else {
 					/* Wins "start_player" */
 					give_points(truco, 1, truco->start_player % 2);
 
 					/* Log */
-					log_print(truco, "¡ Parda en las tres manos !");
-					if (truco->start_player % 2 == 0) log_print(truco, "Equipo 1 gana ronda por ser mano.");
-					else log_print(truco, "Equipo 2 gana ronda por ser mano.");
+					log_print("¡ Parda en las tres manos !");
+					if (truco->start_player % 2 == 0) log_print("Equipo 1 gana ronda por ser mano.");
+					else log_print("Equipo 2 gana ronda por ser mano.");
 				}
 			/* Player winner third hand */
 			} else {
 				/* Team winner third hand */
 				give_points(truco, 1, winner % 2);
 
-				if (winner % 2 == 0) log_print(truco, "Equipo 1 gana ronda.");
-				else log_print(truco, "Equipo 2 gana ronda.");
+				if (winner % 2 == 0) log_print("Equipo 1 gana ronda.");
+				else log_print("Equipo 2 gana ronda.");
 			}
 
 			truco->round_finished = 1;
@@ -284,7 +284,7 @@ void next_round(Truco *truco) {
 		*/
 	}
 
-	log_print(truco, "Mezclando y repartiendo ...");
+	log_print("Mezclando y repartiendo ...");
 
 	/* Merge deck */
 	deck_merge(truco->deck);

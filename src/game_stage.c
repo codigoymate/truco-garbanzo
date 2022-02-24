@@ -18,9 +18,9 @@ void run_game(Truco *truco) {
 
 	int key;
 
-	log_init(truco);
+	log_init();
 
-	log_print(truco, "Partida iniciada");
+	log_print("Partida iniciada");
 
 	next_round(truco);
 
@@ -34,7 +34,7 @@ void run_game(Truco *truco) {
 		draw_game(truco, stdscr);
 
 		refresh();
-		wrefresh(truco->logw);
+		/* wrefresh(truco->logw); */
 
 		key = getch();
 
@@ -63,7 +63,7 @@ void run_game(Truco *truco) {
 
 	nodelay(stdscr, FALSE);
 
-	log_clean(truco);
+	log_clean();
 }
 
 void draw_game(Truco *truco, WINDOW *wnd) {

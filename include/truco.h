@@ -18,7 +18,7 @@ typedef struct {
 	int exit_stage, round_finished;
 
 	/* Logger */
-	WINDOW *logw;
+	FILE *log_file;
 } Truco;
 
 Truco* truco_new(void);
