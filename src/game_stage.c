@@ -64,9 +64,9 @@ void run_game(Truco *truco) {
 		}
 
 		/* Human player event */
-		if (truco->current_player == 0) {
+		/*if (truco->current_player == 0) {
 			human_play(truco, key);
-		}
+		}*/
 	}
 
 	nodelay(stdscr, FALSE);
