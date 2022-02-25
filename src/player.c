@@ -36,7 +36,9 @@ int play_card(Player *player, int index) {
 		/* Log */
 		cn = card_long_name(player->played[fs]);
 		msg = string_set(NULL, player->name);
-		msg = string_cat(msg, " juega ");
+		msg = string_cat(msg, "(");
+		msg = string_cat_number(msg, player->id % 2 + 1);
+		msg = string_cat(msg, ") juega ");
 		msg = string_cat(msg, cn);
 		log_print(msg);
 		string_clean(cn);
