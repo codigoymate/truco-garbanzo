@@ -8,6 +8,7 @@
 #include <colors.h>
 #include <logger.h>
 #include <human.h>
+#include <timing.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
 
@@ -36,20 +37,27 @@ void run_game(Truco *truco) {
 		refresh();
 		/* wrefresh(truco->logw); */
 
+		delay(100);
+
 		key = getch();
 
-		if (key == KEY_RESIZE) {
+		switch (key) {
+		case KEY_RESIZE:
 			layout_players(truco);
+			break;
+
+		case 27:
+			truco->exit_stage = 1;
+			truco->stage = MAIN_MENU_STAGE;
+			break;
 		}
 
 		/* Update */
 		if (!truco->round_finished) {
 			if (truco->current_player == 0)
 				human_play(truco, key);
-			else {
+			else
 				ia_play(truco);
-				next_player(truco);
-			}
 		} else {
 			truco->round_finished = 0;
 			next_round(truco);

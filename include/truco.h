@@ -19,6 +19,9 @@ typedef struct {
 
 	/* Logger */
 	FILE *log_file;
+
+	/* IA timer */
+	long ia_timer;
 } Truco;
 
 Truco* truco_new(void);
