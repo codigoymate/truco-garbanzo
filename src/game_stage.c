@@ -35,7 +35,6 @@ void run_game(Truco *truco) {
 		draw_game(truco, stdscr);
 
 		refresh();
-		/* wrefresh(truco->logw); */
 
 		delay(100);
 
@@ -63,10 +62,6 @@ void run_game(Truco *truco) {
 			next_round(truco);
 		}
 
-		/* Human player event */
-		/*if (truco->current_player == 0) {
-			human_play(truco, key);
-		}*/
 	}
 
 	nodelay(stdscr, FALSE);
@@ -110,8 +105,16 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 	}
 
 	/* Score */
-	mvwprintw(wnd, 1, 60, "Nosotros: %d", get_player(truco, 0)->score);
-	mvwprintw(wnd, 2, 60, "Ellos: %d", get_player(truco, 1)->score);
+	if (truco->player_count > 2) {
+		mvwprintw(wnd, 1, 60, "Ellos: %d", get_player(truco, 1)->score);
+		mvwprintw(wnd, 2, 60, "Nosotros: %d", get_player(truco, 0)->score);
+	} else {
+		mvwprintw(wnd, 1, 60, "%s: %d",
+				get_player(truco, 1)->name, get_player(truco, 1)->score);
+		mvwprintw(wnd, 2, 60, "%s: %d",
+				get_player(truco, 0)->name, get_player(truco, 0)->score);
+	}
+	
 	
 	/* Draw player 0 card */
 	for (i = 0; i < 3; i ++) {
