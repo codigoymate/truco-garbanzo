@@ -7,6 +7,7 @@
 #include <string.h>
 
 void draw_table(Truco *truco, WINDOW *wnd);
+void draw_point_squares(WINDOW *wnd, int x, int y, int points);
 
 PointTable *point_table_new(Truco *truco, int x, int y, int w, int h) {
     PointTable *pt = (PointTable *) malloc(sizeof(PointTable));
@@ -29,6 +30,9 @@ void point_table_draw(PointTable *pt) {
     box(pt->wnd, 0, 0);
 
     draw_table(pt->truco, pt->wnd);
+
+    draw_point_squares(pt->wnd, pt->wnd->_maxx / 4 - 2, 4, pt->truco->first_player->score);
+    draw_point_squares(pt->wnd, pt->wnd->_maxx / 4 * 3 - 2, 4, pt->truco->first_player->next->score);
 
     mvwprintw(pt->wnd, pt->wnd->_maxy - 1, 3, "<Enter> para continuar.");
 
@@ -71,5 +75,41 @@ void draw_table(Truco *truco, WINDOW *wnd) {
     } else {
         mvwprintw(wnd, 2, wnd->_maxx / 4 - strlen(truco->first_player->name) / 2, truco->first_player->name);
         mvwprintw(wnd, 2, wnd->_maxx / 4 * 3 - strlen(truco->first_player->next->name) / 2, truco->first_player->next->name);
+    }
+}
+
+void draw_point_squares(WINDOW *wnd, int x, int y, int points) {
+
+    if (!points) return ;
+
+    if (points >= 1) {
+        mvwaddch(wnd, y + 1, x, ACS_VLINE | A_ALTCHARSET);
+    }
+
+    if (points >= 2) {
+        mvwaddch(wnd, y, x, ACS_ULCORNER | A_ALTCHARSET);
+        mvwaddch(wnd, y, x + 1, ACS_HLINE | A_ALTCHARSET);
+        mvwaddch(wnd, y, x + 2, ACS_HLINE | A_ALTCHARSET);
+    }
+
+    if (points >= 3) {
+        mvwaddch(wnd, y, x + 3, ACS_URCORNER | A_ALTCHARSET);
+        mvwaddch(wnd, y + 1, x + 3, ACS_VLINE | A_ALTCHARSET);
+    }
+
+    if (points >= 4) {
+        mvwaddch(wnd, y + 2, x, ACS_LLCORNER | A_ALTCHARSET);
+        mvwaddch(wnd, y + 2, x + 1, ACS_HLINE | A_ALTCHARSET);
+        mvwaddch(wnd, y + 2, x + 2, ACS_HLINE | A_ALTCHARSET);
+        mvwaddch(wnd, y + 2, x + 3, ACS_LRCORNER | A_ALTCHARSET);
+    }
+
+    if (points >= 5) {
+        mvwaddch(wnd, y + 1, x + 1, ACS_HLINE | A_ALTCHARSET);
+        mvwaddch(wnd, y + 1, x + 2, ACS_HLINE | A_ALTCHARSET);
+    }
+
+    if (points > 5) {
+        draw_point_squares(wnd, x, y + 3, points - 5);
     }
 }
