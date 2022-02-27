@@ -2,6 +2,35 @@
 
 #include <logger.h>
 #include <string_utils.h>
+#include <stdlib.h>
+#include <ncurses.h>
+
+PointTable *point_table_new(Truco *truco, int x, int y, int w, int h) {
+    PointTable *pt = (PointTable *) malloc(sizeof(PointTable));
+    pt->truco = truco;
+    pt->wnd = newwin(h, w, y, x);
+
+    return pt;
+}
+
+void point_table_clean(PointTable *pt) {
+    delwin(pt->wnd);
+    free(pt);
+}
+
+void point_table_draw(PointTable *pt) {
+
+    int key = 0;
+
+    wclear(pt->wnd);
+    box(pt->wnd, 0, 0);
+
+    mvwprintw(pt->wnd, pt->wnd->_maxy - 1, 3, "<Enter> para continuar.");
+
+    wrefresh(pt->wnd);
+
+    while (key != 10) key = wgetch(pt->wnd);
+}
 
 void give_points(Truco *truco, int points, int team) {
     int i = 0;

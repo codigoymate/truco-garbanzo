@@ -9,6 +9,7 @@
 #include <logger.h>
 #include <human.h>
 #include <timing.h>
+#include <points.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
 
@@ -18,6 +19,8 @@ void back(Truco *truco);
 void run_game(Truco *truco) {
 
 	int key;
+	PointTable *points;
+	points = point_table_new(truco, 60, 3, 40, 10);
 
 	log_init();
 
@@ -58,6 +61,9 @@ void run_game(Truco *truco) {
 			else
 				ia_play(truco);
 		} else {
+			/* Show results */
+			point_table_draw(points);
+
 			truco->round_finished = 0;
 			next_round(truco);
 		}
@@ -65,6 +71,8 @@ void run_game(Truco *truco) {
 	}
 
 	nodelay(stdscr, FALSE);
+
+	point_table_clean(points);
 
 	log_clean();
 }
