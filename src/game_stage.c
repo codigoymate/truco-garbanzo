@@ -20,7 +20,7 @@ void run_game(Truco *truco) {
 
 	int key;
 	PointTable *points;
-	points = point_table_new(truco, 60, 3, 40, 10);
+	points = point_table_new(truco, 60, 3, 40, 20);
 
 	log_init();
 
