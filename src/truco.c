@@ -35,6 +35,8 @@ Truco *truco_new(void) {
 	truco->current_player = 0;
 	truco->round_finished = 0;
 	deck_init(truco->deck);
+
+	truco->max_points = 30;
 	return truco;
 }
 

@@ -23,6 +23,9 @@ typedef struct {
 
 	/* IA timer */
 	long ia_timer;
+
+	/* Options */
+	int max_points;
 } Truco;
 
 Truco* truco_new(void);

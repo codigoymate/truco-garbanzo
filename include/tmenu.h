@@ -40,8 +40,9 @@ Menu *menu_new(Truco *truco, int x, int y, int w, int h);
  * @param menu Menu instance.
  * @param name Name of the item.
  * @param action Action fuction pointer.
+ * @return MenuItem* the menu item instance.
  */
-void menu_add_item(Menu *menu, const char *name, FUNC_PTR action);
+MenuItem *menu_add_item(Menu *menu, const char *name, FUNC_PTR action);
 
 /**
  * @brief Clean the menu from memory, and containing items too.

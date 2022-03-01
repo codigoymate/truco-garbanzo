@@ -33,7 +33,7 @@ Menu *menu_new(Truco *truco, int x, int y, int w, int h) {
 	return menu;
 }
 
-void menu_add_item(Menu *menu, const char *name, FUNC_PTR action) {
+MenuItem *menu_add_item(Menu *menu, const char *name, FUNC_PTR action) {
 	MenuItem *item = (MenuItem *) malloc(sizeof(MenuItem));
 	item->name = string_set(NULL, name);
 	item->action = action;
@@ -44,11 +44,13 @@ void menu_add_item(Menu *menu, const char *name, FUNC_PTR action) {
 	if (!menu->first) {
 		menu->first = item;
 		menu->last = item;
-		return ;
+		return item;
 	}
 
 	menu->last->next = item;
 	menu->last = item;
+
+	return item;
 }
 
 void menu_clean(Menu *menu) {
