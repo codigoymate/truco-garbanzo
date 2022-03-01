@@ -12,6 +12,7 @@
 #include <points.h>
 
 void draw_game(Truco *truco, WINDOW *wnd);
+void draw_statusbar(Truco *truco, WINDOW *wnd);
 
 void next(Truco *truco);
 void back(Truco *truco);
@@ -36,6 +37,7 @@ void run_game(Truco *truco) {
 
 		/* Draw */
 		draw_game(truco, stdscr);
+		draw_statusbar(truco, stdscr);
 
 		log_draw();
 
@@ -133,4 +135,18 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 			card_draw(wnd, truco->first_player->hand[i], w - 33 + 10 * i, h - 8);
 		}
 	}
+}
+
+void draw_statusbar(Truco *truco, WINDOW *wnd) {
+	int w, h, i;
+	getmaxyx(wnd, h, w);
+
+	wattron(wnd, COLOR_PAIR(PAIR_STATUSBAR));
+	for (i = 0; i < w; i ++) {
+		mvwaddch(wnd, h - 1, i, ' ');
+	}
+
+	mvwprintw(wnd, h - 1, 0, " Turno de %s", get_player(truco, truco->current_player)->name);
+
+	wattroff(wnd, COLOR_PAIR(PAIR_STATUSBAR));
 }

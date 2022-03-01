@@ -19,6 +19,9 @@ void init_colors(void) {
     /* Menu */
     init_pair(PAIR_MENU, COLOR_GREEN, COLOR_BLACK);
 
+    /* Status bar */
+    init_pair(PAIR_STATUSBAR, COLOR_WHITE, COLOR_GREEN);
+
 	/* Draw card */
     init_pair(PAIR_CARD, COLOR_BLACK, COLOR_WHITE);
     init_pair(PAIR_CARD_ORO, COLOR_YELLOW, COLOR_WHITE);
