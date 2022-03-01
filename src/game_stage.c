@@ -37,6 +37,8 @@ void run_game(Truco *truco) {
 		/* Draw */
 		draw_game(truco, stdscr);
 
+		log_draw();
+
 		refresh();
 
 		delay(100);
