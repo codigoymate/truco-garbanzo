@@ -2,6 +2,7 @@
 #include <truco.h>
 #include <main_menu_stage.h>
 #include <game_stage.h>
+#include <options_stage.h>
 #include <colors.h>
 
 #include <stdlib.h>
@@ -34,6 +35,9 @@ int main(int argc, char *argv[]) {
             break;
         case GAME_STAGE:
             run_game(truco);
+            break;
+        case OPTIONS_STAGE:
+            run_options(truco);
             break;
         }
     }

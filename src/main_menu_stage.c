@@ -7,16 +7,18 @@
 void one_oponent(Truco *truco);
 void two_oponents(Truco *truco);
 void three_oponents(Truco *truco);
+void options(Truco *truco);
 void quit(Truco *truco);
 
 void run_main_menu(Truco *truco) {
     Menu *menu;
 
-    menu = menu_new(truco, 20, 5, 22, 6);
+    menu = menu_new(truco, 20, 5, 22, 7);
 
     menu_add_item(menu, "    Un Oponente     ", one_oponent);
     menu_add_item(menu, "   Dos Oponentes    ", two_oponents);
     menu_add_item(menu, "   Tres Oponentes   ", three_oponents);
+    menu_add_item(menu, "      Opciones      ", options);
     menu_add_item(menu, "       Salir        ", quit);
 
     while (!truco->exit_stage) {
@@ -58,6 +60,11 @@ void three_oponents(Truco *truco) {
     truco->player_count = 6;
     start_game(truco);
     truco->stage = GAME_STAGE;
+    truco->exit_stage = 1;
+}
+
+void options(Truco *truco) {
+    truco->stage = OPTIONS_STAGE;
     truco->exit_stage = 1;
 }
 

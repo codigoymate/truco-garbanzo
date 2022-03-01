@@ -6,6 +6,7 @@
 
 #define MAIN_MENU_STAGE			0
 #define GAME_STAGE				1
+#define OPTIONS_STAGE			2
 
 typedef struct {
 	int player_count, quit, current_player, start_player;
