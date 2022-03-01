@@ -190,6 +190,7 @@ void next_player(Truco *truco) {
 				give_points(truco, 1, winner % 2);
 
 				/* Log */
+				log_print("Parda en la segunda.");
 				if (winner % 2 == 0) log_print("Equipo 1 gana ronda.");
 				else log_print("Equipo 2 gana ronda.");
 				truco->round_finished = 1;

@@ -7,10 +7,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-void item1(void);
-void item2(void);
-void quit(void);
-
 int main(int argc, char *argv[]) {
 
     Truco *truco;
