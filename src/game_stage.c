@@ -127,11 +127,17 @@ void draw_game(Truco *truco, WINDOW *wnd) {
 				get_player(truco, 0)->name, get_player(truco, 0)->score);
 	}
 	
+	/* Draw human controls */
+	human_draw_controls(truco, w, h);
 	
-	/* Draw player 0 card */
+	/* Draw human cards */
 	for (i = 0; i < 3; i ++) {
 		if (truco->first_player->hand[i]) {
-			mvwprintw(wnd, h - 9, w - 33 + 10 * i, "[%i]", i + 1);
+			mvwaddch(wnd, h - 9, w - 33 + 10 * i, '[' | COLOR_PAIR(PAIR_HUMAN_CONTROL));
+			wattron(wnd, COLOR_PAIR(PAIR_SHORTCUT));
+			wprintw(wnd, "%i", i + 1);
+			wattroff(wnd, COLOR_PAIR(PAIR_SHORTCUT));
+			waddch(wnd, ']' | COLOR_PAIR(PAIR_HUMAN_CONTROL));
 			card_draw(wnd, truco->first_player->hand[i], w - 33 + 10 * i, h - 8);
 		}
 	}

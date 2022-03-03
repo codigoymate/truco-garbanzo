@@ -2,6 +2,7 @@
 
 #include <player.h>
 #include <time.h>
+#include <colors.h>
 
 void human_play(Truco *truco, int key) {
     switch (key) {
@@ -18,4 +19,12 @@ void human_play(Truco *truco, int key) {
         break;
     }
 
+}
+
+void human_draw_controls(Truco *truco, int w, int h) {
+    /* Give up */
+    mvaddch(h - 11, w - 33, 'M' | COLOR_PAIR(PAIR_SHORTCUT));
+    attron(COLOR_PAIR(PAIR_HUMAN_CONTROL));
+    printw("e voy al mazo");
+    attroff(COLOR_PAIR(PAIR_HUMAN_CONTROL));
 }

@@ -22,6 +22,10 @@ void init_colors(void) {
     /* Status bar */
     init_pair(PAIR_STATUSBAR, COLOR_WHITE, COLOR_GREEN);
 
+    /* Human controls */
+    init_pair(PAIR_HUMAN_CONTROL, COLOR_WHITE, COLOR_BLACK);
+    init_pair(PAIR_SHORTCUT, COLOR_GREEN, COLOR_BLACK);
+
 	/* Draw card */
     init_pair(PAIR_CARD, COLOR_BLACK, COLOR_WHITE);
     init_pair(PAIR_CARD_ORO, COLOR_YELLOW, COLOR_WHITE);
