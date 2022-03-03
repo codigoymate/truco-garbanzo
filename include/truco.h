@@ -13,7 +13,7 @@ typedef struct {
 	int hand;
 	int stage, winners[3];
 	Player *first_player, *last_player;
-	Card *deck[40];
+	Card *deck[41];
 
 	/* TUI */
 	int exit_stage, round_finished;

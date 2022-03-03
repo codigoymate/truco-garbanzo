@@ -13,6 +13,8 @@ Player *player_new(const char *name) {
 	player->next = NULL;
 	player->score = 0;
 
+	player->surrendered = 0;
+
 	for (i = 0; i < 3; i ++) {
 		player->hand[i] = NULL;
 		player->played[i] = NULL;

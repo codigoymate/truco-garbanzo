@@ -3,8 +3,12 @@
 #include <player.h>
 #include <time.h>
 #include <colors.h>
+#include <ctype.h>
 
 void human_play(Truco *truco, int key) {
+
+    key = toupper(key);
+
     switch (key) {
     case '1':
     case '2':
@@ -14,6 +18,10 @@ void human_play(Truco *truco, int key) {
             next_player(truco);
         }
         break;
+
+    case 'M':
+        /* Give up */
+        
 
     default:
         break;

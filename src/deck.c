@@ -54,6 +54,9 @@ void deck_init(Card *deck[]) {
 
 	deck[38] = card_new(1, BASTOS, 12, 1);
 	deck[39] = card_new(1, ESPADAS, 13, 1);
+
+	/* The null card */
+	deck[40] = card_new(-1, -1, -1, -1);
 }
 
 void deck_clean(Card *deck[]) {
@@ -81,6 +84,8 @@ void deal_cards(Truco *truco) {
 
 	for (player = truco->first_player; player != NULL; player = player->next) {
 		int i = 0;
+		/* Reset the player and deal cards */
+		player->surrendered = 0;
 		for (i = 0; i < 3; i ++) {
 			player->hand[i] = truco->deck[deck_index];
 			player->played[i] = NULL;

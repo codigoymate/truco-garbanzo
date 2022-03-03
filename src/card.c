@@ -105,7 +105,8 @@ void card_draw(WINDOW *wnd, Card *card, int x, int y) {
 void card_draw_small(WINDOW *wnd, Card *card, int x, int y) {
 	wattron(wnd, COLOR_PAIR(PAIR_CARD));
 	rectangle(wnd, x, y, 5, 3);
-	mvwprintw(wnd, y + 1, x + 1, "%d", card->value);
+	if (card->value != -1)
+		mvwprintw(wnd, y + 1, x + 1, "%d", card->value);
 	wattroff(wnd, COLOR_PAIR(PAIR_CARD));
 
 	switch (card->type) {
