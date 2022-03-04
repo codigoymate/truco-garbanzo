@@ -7,6 +7,11 @@
 
 void human_play(Truco *truco, int key) {
 
+    if (truco->first_player->surrendered) {
+		next_player(truco);
+		return ;
+	}
+
     key = toupper(key);
 
     switch (key) {
@@ -21,7 +26,10 @@ void human_play(Truco *truco, int key) {
 
     case 'M':
         /* Give up */
-        
+        give_up(truco->first_player, truco->deck);
+        truco->ia_timer = clock() + (CLOCKS_PER_SEC / 1000) * 1000;
+        next_player(truco);
+        break;
 
     default:
         break;

@@ -24,5 +24,15 @@ Player *player_new(const char *name);
  */
 int play_card(Player *player, int index);
 
+/**
+ * @brief Player setted to surrendered mode.
+ * 
+ * @param player player instance.
+ * @param deck for the null card.
+ */
+
+
+void give_up(Player *player, Card *deck[]);
+
 #endif
 

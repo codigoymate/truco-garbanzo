@@ -9,9 +9,15 @@ void ia_play(Truco *truco) {
 	
 	Player *player = NULL;
 
-	if (clock() < truco->ia_timer) return;
-	
 	player = get_player(truco, truco->current_player);
+
+	if (player->surrendered) {
+		next_player(truco);
+		return ;
+	}
+
+	if (clock() < truco->ia_timer) return;
+
 
 	/* TODO: improve IA
 	*/

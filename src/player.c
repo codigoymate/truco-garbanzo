@@ -49,3 +49,15 @@ int play_card(Player *player, int index) {
 		return 1; /* Success */
 	} else return 0;
 }
+
+void give_up(Player *player, Card *deck[]) {
+	int i = 0;
+	player->surrendered = 1;
+
+	/* Clear hand */
+	for (i = 0; i < 3; i ++) {
+		player->hand[i] = NULL;
+		/* Set the null card if not played */
+		if (!player->played[i]) player->played[i] = deck[40];
+	}
+}
