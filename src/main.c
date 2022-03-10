@@ -23,6 +23,8 @@ int main(int argc, char *argv[]) {
 
     keypad(stdscr, TRUE);
 
+    set_escdelay(0);
+
     truco = truco_new();
 
     while (!truco->quit) {

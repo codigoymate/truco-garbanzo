@@ -33,7 +33,7 @@ void run_game(Truco *truco) {
 
     while (!truco->exit_stage) {
 
-		clear();
+		erase();
 
 		/* Draw */
 		draw_game(truco, stdscr);
