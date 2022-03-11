@@ -1,11 +1,31 @@
-#include <main_menu_stage.h>
-
-#include <tmenu.h>
 #include <ncurses.h>
-#include <colors.h>
 
-/* Title */
-chtype title_data[] = {
+void draw(WINDOW *wnd);
+
+int main(void) {
+	int bg, fg, p = 1;
+
+    initscr();
+    start_color();
+
+    /* Init color pairs */
+    for (bg = 0; bg < 8; bg ++) {
+        for (fg = 0; fg < 8; fg ++) {
+            init_pair(p, fg, bg); p ++;
+        }
+    }
+
+    draw(stdscr);
+    refresh();
+    getch();
+    endwin();
+
+    return 0;
+}
+
+void draw(WINDOW *wnd) {
+	int w = 43, h = 5, x, y, i = 0;
+	chtype m[] = {
 0x501371, 0x501371, 0x501371, 0x501377, 0x501377, 0x501371, 0x501371, 0x501371, 0x0000, 0x50136C, 0x501377, 0x501371, 0x501371, 0x501371, 0x501371, 0x50136B, 
 0x0000, 0x0000, 0x501378, 0x501378, 0x0000, 0x0000, 0x0000, 0x0000, 0x501378, 0x501378, 0x0000, 0x0000, 0x50136C, 0x501371, 0x501371, 0x501371, 
 0x501371, 0x501371, 0x0000, 0x0000, 0x50136C, 0x501371, 0x501371, 0x501371, 0x501371, 0x50136B, 0x0000, 0x0000, 0x0000, 0x0000, 0x501378, 0x501378, 
@@ -21,85 +41,9 @@ chtype title_data[] = {
 0x501C71, 0x501C71, 0x501C71, 0x501C71, 0x501C6A, 0x0000, 0x0000, 0x0000, 0x501C6D, 0x501C71, 0x501C71, 0x501C71, 0x501C71, 0x501C71, 0x0000, 0x0000, 
 0x501C6D, 0x501C71, 0x501C71, 0x501C71, 0x501C71, 0x501C6A, 0x0000	};
 
-void draw_title(void);
-
-void one_oponent(Truco *truco);
-void two_oponents(Truco *truco);
-void three_oponents(Truco *truco);
-void options(Truco *truco);
-void quit(Truco *truco);
-
-void run_main_menu(Truco *truco) {
-    Menu *menu;
-
-    menu = menu_new(truco, 26, 8, 22, 7);
-
-    menu_add_item(menu, "    Un Oponente     ", one_oponent);
-    menu_add_item(menu, "   Dos Oponentes    ", two_oponents);
-    menu_add_item(menu, "   Tres Oponentes   ", three_oponents);
-    menu_add_item(menu, "      Opciones      ", options);
-    menu_add_item(menu, "       Salir        ", quit);
-
-    while (!truco->exit_stage) {
-        erase();
-        wclear(menu->wnd);
-
-        /* Title */
-        draw_title();
-
-        /* Menu */ 
-        menu_print(menu);
-
-        refresh();
-        wrefresh(menu->wnd);
-
-        menu_key_event(menu, getch());
-    }
-
-    menu_clean(menu);
-}
-
-void one_oponent(Truco *truco) {
-    truco->player_count = 2;
-    start_game(truco);
-    truco->stage = GAME_STAGE;
-    truco->exit_stage = 1;
-}
-
-void two_oponents(Truco *truco) {
-    truco->player_count = 4;
-    start_game(truco);
-    truco->stage = GAME_STAGE;
-    truco->exit_stage = 1;
-}
-
-void three_oponents(Truco *truco) {
-    truco->player_count = 6;
-    start_game(truco);
-    truco->stage = GAME_STAGE;
-    truco->exit_stage = 1;
-}
-
-void options(Truco *truco) {
-    truco->stage = OPTIONS_STAGE;
-    truco->exit_stage = 1;
-}
-
-void quit(Truco *truco) {
-    truco->exit_stage = 1;
-    truco->quit = 1;
-}
-
-void draw_title(void) {
-    int w = 43, h = 5, x, y, i = 0;
-
-    for (y = 0; y < h; y ++)
+	for (y = 0; y < h; y ++)
 		for (x = 0; x < w; x ++) {
-			if (title_data[i]) mvaddch(y + 2, x + 5, title_data[i]);
+			if (m[i]) mvwaddch(wnd, y, x, m[i]);
 			i ++;
 		}
-
-    attron(COLOR_PAIR(PAIR_TITLE));
-    mvprintw(8, 6, "%s", "A R G E N T I N O");
-    attroff(COLOR_PAIR(PAIR_TITLE));
 }
