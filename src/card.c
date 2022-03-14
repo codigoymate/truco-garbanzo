@@ -12,12 +12,11 @@ void draw_stick(WINDOW * wnd, int x, int y);
 
 void rectangle(WINDOW *wnd, int x, int y, int w, int h);
 
-Card *card_new(int value, int type, int pow, int envido) {
+Card *card_new(int value, int type, int pow) {
 	Card *card = (Card *) malloc(sizeof(Card));
 	card->value = value;
 	card->type = type;
 	card->power = pow;
-	card->envido = envido;
 
 	return card;
 }

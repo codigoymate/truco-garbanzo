@@ -9,7 +9,7 @@
 #define BASTOS			3
 
 typedef struct {
-	int value, type, power, envido;
+	int value, type, power;
 } Card;
 
 /**
@@ -18,10 +18,9 @@ typedef struct {
  * @param value 1 to 7 and 10 to 12.
  * @param type ORO, COPAS, ESPADAS, BASTOS.
  * @param pow 0 (4 OCEB) to 13 (1 E)
- * @param envido envido points = values, 10 11 12 = 0
  * @return Card* card pointer.
  */
-Card *card_new(int value, int type, int pow, int envido);
+Card *card_new(int value, int type, int pow);
 
 /**
  * @brief Generate long name string. ex:
