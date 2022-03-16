@@ -277,6 +277,8 @@ void next_round(Truco *truco) {
 	truco->current_player = truco->start_player;
 
 	truco->hand = 0;
+	truco->current_canto = 0;
+	truco->canto_team = -1;
 	
 	for (i = 0; i < 3; i ++) {
 		truco->winners[i] = -1;

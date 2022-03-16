@@ -15,6 +15,9 @@ typedef struct {
 	Player *first_player, *last_player;
 	Card *deck[41];
 
+	/* Canto */
+	int current_canto, canto_team;
+
 	/* TUI */
 	int exit_stage, round_finished;
 

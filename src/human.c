@@ -1,6 +1,7 @@
 #include <human.h>
 
 #include <player.h>
+#include <canto.h>
 #include <time.h>
 #include <colors.h>
 #include <ctype.h>
@@ -29,6 +30,11 @@ void human_play(Truco *truco, int key) {
         give_up(truco->first_player, truco->deck);
         truco->ia_timer = clock() + (CLOCKS_PER_SEC / 1000) * 1000;
         next_player(truco);
+        break;
+
+    case 'T':
+        /* Truco, retruco and vale-cuatro */
+        canto(truco, truco->first_player);
         break;
 
     default:
