@@ -7,11 +7,14 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <wchar.h>
+#include <locale.h>
 
 int main(int argc, char *argv[]) {
 
     Truco *truco;
 
+    setlocale(LC_ALL, "");
     srand(time(NULL));
 
     initscr();

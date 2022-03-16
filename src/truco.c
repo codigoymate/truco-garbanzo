@@ -5,6 +5,7 @@
 #include <deck.h>
 #include <points.h>
 #include <logger.h>
+#include <wchar.h>
 
 int get_hand_winner(Truco *truco);
 
