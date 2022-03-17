@@ -6,6 +6,8 @@
 #include <colors.h>
 #include <ctype.h>
 
+void draw_option(int x, int y, const char *key, const char *name);
+
 void human_play(Truco *truco, int key) {
 
     if (truco->first_player->surrendered) {
@@ -43,10 +45,34 @@ void human_play(Truco *truco, int key) {
 
 }
 
-void human_draw_controls(Truco *truco, int w, int h) {
-    /* Give up */
-    mvaddch(h - 11, w - 33, 'M' | COLOR_PAIR(PAIR_SHORTCUT));
+void draw_option(int x, int y, const char *key, const char *name) {
+    attron(COLOR_PAIR(PAIR_SHORTCUT));
+    mvprintw(y, x, key);
+    attroff(COLOR_PAIR(PAIR_SHORTCUT));
+
     attron(COLOR_PAIR(PAIR_HUMAN_CONTROL));
-    printw("e voy al mazo");
+    mvprintw(y, x + 6, name);
     attroff(COLOR_PAIR(PAIR_HUMAN_CONTROL));
+}
+
+void human_draw_controls(Truco *truco, int w, int h) {
+
+    int y = h - 11;
+
+    draw_option(w - 33, y, "[Esc]", "Salir."); y --;
+
+    if (truco->current_player == 0) {
+
+        /* Give up */
+
+        draw_option(w - 33, y, "[M]", "Me voy al mazo."); y --;
+
+        if (truco->canto_team != 0) {
+            switch (truco->current_canto) {
+            case 0:
+                draw_option(w - 33, y, "[T]", "Truco."); y --;
+                break;
+            }
+        }
+    }
 }
