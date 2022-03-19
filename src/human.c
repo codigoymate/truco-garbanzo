@@ -36,7 +36,14 @@ void human_play(Truco *truco, int key) {
 
     case 'T':
         /* Truco, retruco and vale-cuatro */
-        canto(truco, truco->first_player);
+        if (canto(truco, truco->first_player)) {
+            truco->canto_mode = 1;
+            /* Player turn back */
+            truco->current_player --;
+            if (truco->current_player < 0) truco->current_player = truco->player_count - 1;
+            truco->ia_timer = clock() + (CLOCKS_PER_SEC / 1000) * 1000;
+        }
+
         break;
 
     default:

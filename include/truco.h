@@ -16,7 +16,7 @@ typedef struct {
 	Card *deck[41];
 
 	/* Canto */
-	int current_canto, canto_team;
+	int current_canto, canto_team, canto_mode;
 
 	/* TUI */
 	int exit_stage, round_finished;

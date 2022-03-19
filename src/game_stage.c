@@ -63,7 +63,8 @@ void run_game(Truco *truco) {
 			if (truco->current_player == 0)
 				human_play(truco, key);
 			else
-				ia_play(truco);
+				if (truco->canto_mode) ia_play_canto(truco);
+				else ia_play(truco);
 		} else {
 			/* Show results */
 			point_table_draw(points);

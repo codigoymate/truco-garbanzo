@@ -3,17 +3,17 @@
 #include <logger.h>
 #include <string_utils.h>
 
-void canto(Truco *truco, Player *player) {
+int canto(Truco *truco, Player *player) {
     char *msg;
     int team = player->id % 2;
     if (truco->canto_team == team) {
         /* Team already have truco/retruco/vale-cuatro */
-        return ;
+        return 0;
     }
 
     if (truco->current_canto == VALE_CUATRO) {
         /* Cannot sing more than vale-cuatro */
-        return ;
+        return 0;
     }
 
     truco->current_canto ++;
@@ -23,16 +23,18 @@ void canto(Truco *truco, Player *player) {
 
     switch (truco->current_canto) {
     case TRUCO:
-        msg = string_cat(msg, ": ¡truco!");
+        msg = string_cat(msg, ": truco!");
         break;
     case RETRUCO:
-        msg = string_cat(msg, ": ¡quiero retruco!");
+        msg = string_cat(msg, ": quiero retruco!");
         break;
     case VALE_CUATRO:
-        msg = string_cat(msg, ": ¡quiero vale cuatro!");
+        msg = string_cat(msg, ": quiero vale cuatro!");
         break;
     }
 
     log_print(msg);
     string_clean(msg);
+
+    return 1;
 }

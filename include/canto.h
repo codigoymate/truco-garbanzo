@@ -12,7 +12,8 @@
  * 
  * @param truco Truco instance.
  * @param player Player who sing.
+ * @return 1 if and only if the playar can sing.
  */
-void canto(Truco *truco, Player *player);
+int canto(Truco *truco, Player *player);
 
 #endif
