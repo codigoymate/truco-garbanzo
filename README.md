@@ -1,1 +1,3 @@
-# truco-garbanzo
+# Truco Argentino
+
+![](res/truco.png)
