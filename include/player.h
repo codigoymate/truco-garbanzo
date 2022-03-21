@@ -30,9 +30,16 @@ int play_card(Player *player, int index);
  * @param player player instance.
  * @param deck for the null card.
  */
-
-
 void give_up(Player *player, Card *deck[]);
+
+/**
+ * @brief Check the cards on player hand and return 1
+ * if all cards is less than ases.
+ * 
+ * @param player Player instance.
+ * @return int 1 if and only if cards pawer < 7.
+ */
+int has_low_cards(Player *player);
 
 #endif
 

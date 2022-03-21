@@ -61,3 +61,13 @@ void give_up(Player *player, Card *deck[]) {
 		if (!player->played[i]) player->played[i] = deck[40];
 	}
 }
+
+int has_low_cards(Player *player) {
+	int i;
+	for (i = 0; i < 3; i ++) {
+		if (!player->hand[i]) continue;
+		if (player->hand[i]->power > 6) return 0;
+	}
+
+	return 1;
+}
