@@ -21,9 +21,6 @@ typedef struct {
 	/* TUI */
 	int exit_stage, round_finished;
 
-	/* Logger */
-	FILE *log_file;
-
 	/* IA timer */
 	long ia_timer;
 

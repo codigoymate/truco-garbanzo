@@ -46,3 +46,31 @@ void log_draw(void) {
         mvprintw(i + 4, 60, logger->line[i]);
     }
 }
+
+void log_save_round_status(Card *deck[], Player *first_player, int start_player) {
+    Player *pl;
+    int i = 0, c;
+    FILE *file;
+    char *cname;
+
+    file = fopen("status.log", "w");
+
+    for (pl = first_player; pl; pl = pl->next) {
+        for (c = 0; c < 3; c ++) {
+            cname = card_long_name(pl->hand[c]);
+            fprintf(file, "%-25s%-15s%s%s\n", 
+                cname, pl->name, pl->id % 2 ? "(2)" : "(1)",
+                pl->id == start_player ? "(*)" : "");
+            free(cname);
+            i ++;
+        }
+    }
+
+    for (; i < 40; i ++) {
+        cname = card_long_name(deck[i]);
+        fprintf(file, "%-25s\n", cname);
+        free(cname);
+    }
+
+    fclose(file);
+}

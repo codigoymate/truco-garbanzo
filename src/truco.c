@@ -298,6 +298,9 @@ void next_round(Truco *truco) {
 
 	/* Deal cards */
 	deal_cards(truco);
+
+	/* Save round status */
+	log_save_round_status(truco->deck, truco->first_player, truco->start_player);
 }
 
 void increment_current_player(Truco *truco) {
